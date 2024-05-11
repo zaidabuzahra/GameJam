@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour
         PlayerSignals.Instance.onPlayerShoot += Shot;
     }
 
-    private void Shot()
+    private void Shot(int temp)
     {
         Debug.Log("TextUpdated");
         shootText.SetActive(false);

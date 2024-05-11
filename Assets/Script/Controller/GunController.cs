@@ -27,7 +27,7 @@ public class GunController : MonoBehaviour
         transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 1f);
     }
 
-    private void Shoot()
+    private void Shoot(int temp)
     {
         if (!player.activeSelf) return;
         Debug.Log("Fire");

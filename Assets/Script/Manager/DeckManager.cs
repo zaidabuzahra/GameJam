@@ -4,15 +4,21 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Analytics;
 using TMPro;
+using Unity.Mathematics;
+using System;
 
 public class DeckManager : MonoBehaviour
 {
+    [SerializeField] 
+    private FunctionLibrary soLibrary;
     [SerializeField]
     private GameObject cardPrefab;
     [SerializeField]
     private GameObject[] cards = new GameObject[3];
     [SerializeField]
     private GameObject cardText;
+    public PerksLibrary[] perks = new PerksLibrary[23];
+
     private void OnEnable()
     {
         PlayerSignals.Instance.onTurnEnter += OnPlayCardsToPlayer;
@@ -43,7 +49,7 @@ public class DeckManager : MonoBehaviour
     IEnumerator ResetCards(GameObject card)
     {
         yield return new WaitForSeconds(1);
-        StartCoroutine(ShowText());
+        StartCoroutine(ShowText(card));
         for (int i =0; i < cards.Length; i++)
         {
             if (cards[i] == card) continue;
@@ -52,13 +58,14 @@ public class DeckManager : MonoBehaviour
         //Activate Card Effect
     }
 
-    IEnumerator ShowText()
+    IEnumerator ShowText(GameObject card)
     {
         Debug.Log("HUH");
         cardText.GetComponent<TextMeshPro>().text = "Hello I am under the water please help me, I need money";
         cardText.SetActive(true);
         yield return new WaitForSeconds(1);
-        GunSignals.Instance.onGetGunClose?.Invoke();
+        //GunSignals.Instance.onGetGunClose?.Invoke();
+        PlayerSignals.Instance.onPlayerShoot = soLibrary.cardActivation;//card.GetComponent<CardController>().perk.functionNumber;
         yield return new WaitForSeconds(1);
         PlayerSignals.Instance.onPlayerCanSHoot?.Invoke();
     }
@@ -68,6 +75,9 @@ public class DeckManager : MonoBehaviour
         {
             Debug.Log("Card");
             var card = cards[i];
+
+            var data = perks[UnityEngine.Random.Range(1,23)];
+            card.GetComponent<CardController>().perk = data;
             card.SetActive(true);
             card.transform.position = transform.position;
             card.transform.DOMove(player.GetComponent<PlayerController>().cardSockets[i].position, 1f);

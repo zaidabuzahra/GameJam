@@ -1,6 +1,8 @@
 using System;
+using System.Diagnostics;
+using UnityEngine;
 
-public class FunctionLibrary
+public class FunctionLibrary : MonoBehaviour
 {
     public static void Function1()
     {
@@ -117,8 +119,9 @@ public class FunctionLibrary
         Console.WriteLine("Function 23");
     }
 
-    public static void cardActivation(int functionID)
+    public void cardActivation(int functionID)
     {
+        UnityEngine.Debug.Log("Working just fin");
         switch (functionID)
         {
             case 1:

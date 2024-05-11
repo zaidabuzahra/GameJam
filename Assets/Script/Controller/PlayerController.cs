@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask cardLayerMask;
     public Transform GunSocket;
     public Transform[] cardSockets = new Transform[3];
+
+    private PerksLibrary perk;
     private Camera cam;
     private Vector3 _mousePos;
     private GameObject currentCardHover;
@@ -29,7 +31,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Works");
         //PlayerAnimator.SetTrigger("PickUp");
     }
-    private void OnPlayerShoot()
+    private void OnPlayerShoot(int temp)
     {
         //PlayerAnimator.Play(whatever);
     }
@@ -47,6 +49,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && CanChoose)
             {
                 CanChoose = false;
+                perk = currentCardHover.GetComponent<CardController>().perk;
                 PlayerSignals.Instance.onPlayerChoseCard?.Invoke(currentCardHover);
             }
         }
@@ -57,7 +60,7 @@ public class PlayerController : MonoBehaviour
             {
                 CanShoot = false;
                 Debug.Log("Attack");
-                PlayerSignals.Instance.onPlayerShoot?.Invoke();
+                PlayerSignals.Instance.onPlayerShoot?.Invoke(perk.functionNumber);
             }
         }
     }

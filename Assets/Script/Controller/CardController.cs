@@ -8,6 +8,7 @@ public class CardController : MonoBehaviour
     public bool Played = true;
     bool _isHovered;
     Vector3 _originalPos;
+    public PerksLibrary perk;
 
     private void Awake()
     {
