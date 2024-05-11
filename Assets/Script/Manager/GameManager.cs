@@ -16,13 +16,6 @@ public class GameManager : MonoBehaviour
     {
         _currentPlayer = players[0];
         PlayerSignals.Instance.onTurnEnter?.Invoke(_currentPlayer);
-        //PlayerShoot();
-    }
-
-    private void PlayerShoot()
-    {
-        PlayerSignals.Instance.onPlayerShoot?.Invoke(_currentPlayer);
-        PlayerTurnExit();
     }
 
     private void PlayerTurnExit()
