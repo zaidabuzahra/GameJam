@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Perk 21
   m_EditorClassIdentifier: 
   cardTitle: All for One
-  cardDescription: Steal 100 points from 3 random players and give it to the 4th
-    player. No shooting this round.
+  cardDescription: Take 300pts from a random player to give 100pts to each of the
+    other 3 players. No shooting this round.
   cardImage: {fileID: 0}
   functionNumber: 21
