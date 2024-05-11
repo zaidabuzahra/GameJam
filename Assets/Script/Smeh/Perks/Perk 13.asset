@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 368e7f2838db24a7e934759986225bc0, type: 3}
   m_Name: Perk 13
   m_EditorClassIdentifier: 
-  cardTitle: Dice Roll
+  cardTitle: Wheel of death
   cardDescription: Each player rolls a number from 0-6 to determine the number of
     live rounds for his turn. +400pts on survival.
   cardImage: {fileID: 0}

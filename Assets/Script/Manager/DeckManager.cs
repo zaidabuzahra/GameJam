@@ -64,8 +64,8 @@ public class DeckManager : MonoBehaviour
         cardText.GetComponent<TextMeshPro>().text = "Hello I am under the water please help me, I need money";
         cardText.SetActive(true);
         yield return new WaitForSeconds(1);
-        //GunSignals.Instance.onGetGunClose?.Invoke();
-        PlayerSignals.Instance.onPlayerShoot = soLibrary.cardActivation;//card.GetComponent<CardController>().perk.functionNumber;
+        GunSignals.Instance.onGetGunClose?.Invoke();
+        //PlayerSignals.Instance.onPlayerShoot = soLibrary.cardActivation;//card.GetComponent<CardController>().perk.functionNumber;
         yield return new WaitForSeconds(1);
         PlayerSignals.Instance.onPlayerCanSHoot?.Invoke();
     }
@@ -80,7 +80,7 @@ public class DeckManager : MonoBehaviour
             card.GetComponent<CardController>().perk = data;
             card.SetActive(true);
             card.transform.position = transform.position;
-            card.transform.DOMove(player.GetComponent<PlayerController>().cardSockets[i].position, 1f);
+            card.transform.DOMove(player.GetComponent<PlayerManager>().cardSockets[i].position, 1f);
             card.transform.DOScale(new Vector3(0.6039f, 0.7672f, 0.0393f), 1f);
             cards[i] = card;
             yield return new WaitForSeconds(1f);
@@ -90,6 +90,6 @@ public class DeckManager : MonoBehaviour
             card.GetComponent<CardController>().SetPos(card.transform.localPosition);
         }
 
-        player.GetComponent<PlayerController>().CanChoose = true;
+        PlayerSignals.Instance.onPlayerCanChoose?.Invoke();
     }
 }

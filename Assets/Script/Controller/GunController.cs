@@ -22,8 +22,8 @@ public class GunController : MonoBehaviour
     {
         if (!player.activeSelf) return;
         Debug.Log("GunGetClose");
-        transform.DOMove(player.GetComponent<PlayerController>().GunSocket.position, 1f);
-        transform.DORotate(player.GetComponent<PlayerController>().GunSocket.rotation.eulerAngles, 1f);
+        transform.DOMove(player.GetComponent<PlayerManager>().GunSocket.position, 1f);
+        transform.DORotate(player.GetComponent<PlayerManager>().GunSocket.rotation.eulerAngles, 1f);
         transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 1f);
     }
 
@@ -38,15 +38,14 @@ public class GunController : MonoBehaviour
         TriggerAnim();
         int num = Random.Range(1, 6);
         Debug.Log($"first number: {randNumber}, second number: {num}");
-        //if (num == randNumber) PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-        PlayerSignals.Instance.onPlayerDie?.Invoke();
+        if (num == randNumber) PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
+        else PlayerSignals.Instance.onPlayerDie?.Invoke();
     }
 
     private void Survive()
     {
         if (!player.activeSelf) return;
         Debug.Log("YOU SURVIVE");
-        if (!player.activeSelf) return;
         //PlayerSignals.Instance.onTurnExit?.Invoke();
     }
 
