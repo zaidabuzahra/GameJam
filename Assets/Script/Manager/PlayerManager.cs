@@ -19,6 +19,11 @@ public class PlayerManager : MonoBehaviour
         PlayerSignals.Instance.onPlayerGainPoint += AdjustPoint;
     }
 
+    public int GetPoint()
+    {
+        return points;
+    }
+
     public void AdjustPoint(int amount)
     {
         if (amount == 0) points = 0;

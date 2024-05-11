@@ -77,7 +77,7 @@ public class DeckManager : MonoBehaviour
             var card = cards[i];
 
             var data = perks[UnityEngine.Random.Range(1,23)];
-            data = perks[0];
+            data = perks[5];
             card.GetComponent<CardController>().perk = data;
             PlayerSignals.Instance.onPlayerShoot = soLibrary.cardActivation;
             card.SetActive(true);
