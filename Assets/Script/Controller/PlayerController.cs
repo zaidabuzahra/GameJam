@@ -6,6 +6,7 @@ using UnityEngine.Animations;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private LayerMask cardLayerMask;
+    public Transform[] cardSockets = new Transform[3];
     private Camera cam;
     private Vector3 _mousePos;
 
