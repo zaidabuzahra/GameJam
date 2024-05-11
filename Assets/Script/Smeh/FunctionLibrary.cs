@@ -3,6 +3,11 @@ using UnityEngine;
 
 //PlayerSignals.Instance.onPlayerDie?.Invoke();
 
+
+// To adjust a players points, use PlayerSignals.Instance.onPlayerGainPoint?.Invoke(amount). 
+// Amount determines what happens to the value: To add an amount, just type a number. To decreese it type a negative number;
+// To double the amount put in any number bigger than 4000....To set it to zero just type zero
+
 public class FunctionLibrary : MonoBehaviour
 {
     public static void Function1()

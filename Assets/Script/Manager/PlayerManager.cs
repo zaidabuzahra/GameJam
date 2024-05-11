@@ -19,9 +19,14 @@ public class PlayerManager : MonoBehaviour
         PlayerSignals.Instance.onPlayerGainPoint += AdjustPoint;
     }
 
-    private void AdjustPoint(int amount)
+    public void AdjustPoint(int amount)
     {
-        points += amount;
+        if (amount == 0) points = 0;
+        else if (amount >= 4000) points += points;
+        else
+        {
+            points += amount;
+        }
     }
 
     private void OnGetGunClose()

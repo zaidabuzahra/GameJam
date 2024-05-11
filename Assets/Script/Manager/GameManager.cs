@@ -61,7 +61,8 @@ public class GameManager : MonoBehaviour
         int y = 0;
         if (_roundPassed) y = 180;
         else y = 90;
-        cam.transform.DORotate(new Vector3(0, Mathf.Abs(cam.transform.rotation.y) + y, 0), 1f);
+        Debug.Log(cam.transform.rotation.y);
+        cam.transform.DORotate(new Vector3(0, (cam.transform.rotation.y) + y, 0), 1f);
     }
     private void PlayerTurnExit()
     {

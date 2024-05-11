@@ -14,4 +14,5 @@ public class PlayerSignals : MonoSingletonGithub<PlayerSignals>
     public UnityAction onPlayerSUrvive = delegate { };
     public UnityAction onPlayerDie = delegate { };
     public UnityAction<int> onPlayerGainPoint = delegate { };
+    public UnityAction<int> AdjustPoints = delegate { };
 }
