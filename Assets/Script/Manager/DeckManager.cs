@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Analytics;
+using TMPro;
 
 public class DeckManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class DeckManager : MonoBehaviour
     private GameObject cardPrefab;
     [SerializeField]
     private GameObject[] cards = new GameObject[3];
+    [SerializeField]
+    private GameObject cardText;
     private void OnEnable()
     {
         PlayerSignals.Instance.onTurnEnter += OnPlayCardsToPlayer;
@@ -40,24 +43,35 @@ public class DeckManager : MonoBehaviour
     IEnumerator ResetCards(GameObject card)
     {
         yield return new WaitForSeconds(1);
+        StartCoroutine(ShowText());
         for (int i =0; i < cards.Length; i++)
         {
             if (cards[i] == card) continue;
             cards[i].SetActive(false);
         }
-
         //Activate Card Effect
+    }
 
+    IEnumerator ShowText()
+    {
+        Debug.Log("HUH");
+        cardText.GetComponent<TextMeshPro>().text = "Hello I am under the water please help me, I need money";
+        cardText.SetActive(true);
+        yield return new WaitForSeconds(1);
+        GunSignals.Instance.onGetGunClose?.Invoke();
+        yield return new WaitForSeconds(1);
         PlayerSignals.Instance.onPlayerCanSHoot?.Invoke();
     }
     IEnumerator TestOne(GameObject player)
     {
         for (int i = 0; i < 3; i++)
         {
+            Debug.Log("Card");
             var card = cards[i];
             card.SetActive(true);
             card.transform.position = transform.position;
             card.transform.DOMove(player.GetComponent<PlayerController>().cardSockets[i].position, 1f);
+            card.transform.DOScale(new Vector3(0.6039f, 0.7672f, 0.0393f), 1f);
             cards[i] = card;
             yield return new WaitForSeconds(1f);
 
@@ -65,5 +79,7 @@ public class DeckManager : MonoBehaviour
             card.GetComponent<CardController>().Played = false;
             card.GetComponent<CardController>().SetPos(card.transform.localPosition);
         }
+
+        player.GetComponent<PlayerController>().CanChoose = true;
     }
 }
