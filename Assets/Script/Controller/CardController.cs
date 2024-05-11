@@ -5,10 +5,14 @@ using DG.Tweening;
 
 public class CardController : MonoBehaviour
 {
-    public bool Played;
+    public bool Played = true;
     bool _isHovered;
     Vector3 _originalPos;
 
+    private void Awake()
+    {
+        Played = true;
+    }
     public void SetPos(Vector3 pos)
     {
         _originalPos = pos;

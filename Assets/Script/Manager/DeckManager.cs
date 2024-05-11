@@ -54,7 +54,9 @@ public class DeckManager : MonoBehaviour
             cards[i] = card;
             yield return new WaitForSeconds(1f);
 
-            card.GetComponent<CardController>().SetPos(card.transform.position);
+            Debug.Log(card.transform.position);
+            card.GetComponent<CardController>().Played = false;
+            card.GetComponent<CardController>().SetPos(card.transform.localPosition);
         }
     }
 }
