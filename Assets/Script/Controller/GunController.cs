@@ -47,7 +47,7 @@ public class GunController : MonoBehaviour
     {
         if (!player.activeSelf) return;
         Debug.Log("YOU SURVIVE");
-        //PlayerSignals.Instance.onTurnExit?.Invoke();
+        PlayerSignals.Instance.onTurnExit?.Invoke();
     }
 
     private void Die()

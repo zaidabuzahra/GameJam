@@ -38,21 +38,31 @@ public class GameManager : MonoBehaviour
             Debug.Log("It entered");
             _roundPassed = false;
             var lastFirst = players[0];
-            Debug.Log(lastFirst);
+            Debug.Log(players[1].name);
             for (int i = 1; i < players.Length; i++)
             {;
-                players[i] = players[i-1];
+                players[i-1] = players[i];
             }
             players[3] = lastFirst;
             players[_turnManager].SetActive(true);
-            Debug.Log(players[3]);
+            Debug.Log(players[0].name);
+            _currentPlayer = players[_turnManager];
+            Debug.Log(players[3].name);
             PlayerSignals.Instance.onTurnEnter?.Invoke(_currentPlayer);
             return;
         }
         players[_turnManager].SetActive(true);
+        GunSignals.Instance.onGetGunClose?.Invoke();
         PlayerSignals.Instance.onPlayerCanSHoot?.Invoke();
     }
 
+    private void RotateCamera()
+    {
+        int y = 0;
+        if (_roundPassed) y = 180;
+        else y = 90;
+        cam.transform.DORotate(new Vector3(0, Mathf.Abs(cam.transform.rotation.y) + y, 0), 1f);
+    }
     private void PlayerTurnExit()
     {
         StartCoroutine(ShootTimer());
@@ -71,7 +81,7 @@ public class GameManager : MonoBehaviour
         }
         else _turnManager++;
         Debug.Log(_turnManager);
-        cam.transform.DORotate(cam.transform.rotation.eulerAngles + new Vector3(0f, 90f, 0f), 1f);
+        RotateCamera();
         PlayerTurnEnter();
     }
 }
