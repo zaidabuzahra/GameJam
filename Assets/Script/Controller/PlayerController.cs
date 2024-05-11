@@ -6,34 +6,28 @@ using UnityEngine.Animations;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private LayerMask cardLayerMask;
-    public Transform GunSocket;
-    public Transform[] cardSockets = new Transform[3];
 
     private PerksLibrary perk;
+    [SerializeField]
     private Camera cam;
     private Vector3 _mousePos;
     private GameObject currentCardHover;
-    public bool CanShoot, CanChoose;
-    public Animator PlayerAnimator;
-    private void Awake()
-    {
-        cam = Camera.main;
-    }
+    private bool _canShoot, _canChoose;
 
     private void OnEnable()
     {
-        PlayerSignals.Instance.onPlayerShoot += OnPlayerShoot;
-        GunSignals.Instance.onGetGunClose += OnGetGunClose;
+        PlayerSignals.Instance.onPlayerCanSHoot += PlayerShoot;
+        PlayerSignals.Instance.onPlayerCanChoose += PlayerCanChoose;
     }
 
-    private void OnGetGunClose()
+    private void PlayerCanChoose()
     {
-        Debug.Log("Works");
-        //PlayerAnimator.SetTrigger("PickUp");
+        _canChoose = true;
     }
-    private void OnPlayerShoot(int temp)
+    private void PlayerShoot()
     {
-        //PlayerAnimator.Play(whatever);
+        Debug.Log("For some reason he is allowed to shoot");
+        _canShoot = true;
     }
 
     private void Update()
@@ -46,20 +40,22 @@ public class PlayerController : MonoBehaviour
             rayHit.transform.gameObject.GetComponent<CardController>().HoverCard();
 
             currentCardHover = rayHit.transform.gameObject;
-            if (Input.GetMouseButtonDown(0) && CanChoose)
+            if (Input.GetMouseButtonDown(0) && _canChoose)
             {
-                CanChoose = false;
+                Debug.LogWarning("MouseButton");
+                _canChoose = false;
                 perk = currentCardHover.GetComponent<CardController>().perk;
+                Debug.Log(perk);
                 PlayerSignals.Instance.onPlayerChoseCard?.Invoke(currentCardHover);
             }
         }
 
-        if (CanShoot)
+        if (_canShoot)
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                CanShoot = false;
-                Debug.Log("Attack");
+                _canShoot = false;
+                Debug.LogWarning("Space");
                 PlayerSignals.Instance.onPlayerShoot?.Invoke(perk.functionNumber);
             }
         }

@@ -10,6 +10,7 @@ public class PlayerSignals : MonoSingletonGithub<PlayerSignals>
     public UnityAction<int> onPlayerShoot = delegate { };
     public UnityAction<GameObject> onPlayerChoseCard = delegate { };
     public UnityAction onPlayerCanSHoot = delegate { };
+    public UnityAction onPlayerCanChoose = delegate { };
     public UnityAction onPlayerSUrvive = delegate { };
     public UnityAction onPlayerDie = delegate { };
 }

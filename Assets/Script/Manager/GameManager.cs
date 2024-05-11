@@ -1,9 +1,7 @@
-using Newtonsoft.Json.Serialization;
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro.EditorUtilities;
 using UnityEngine;
+using DG.Tweening;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,46 +10,53 @@ public class GameManager : MonoBehaviour
 
     private GameObject _currentPlayer;
     private int _turnManager;
-    private bool _roundPassed = false;
+    private bool _roundPassed = false, firstTime = true;
+
+    [SerializeField]
+    private GameObject cam;
 
     private void OnEnable()
     {
         CoreGameSignals.Instance.onStartGame += PlayerTurnEnter;
-        PlayerSignals.Instance.onPlayerCanSHoot += PlayerShoot;
         PlayerSignals.Instance.onTurnExit += PlayerTurnExit;
-    }
-
-    private void PlayerShoot()
-    {
-        Debug.Log("For some reason he is allowed to shoot");
-        _currentPlayer.GetComponent<PlayerController>().CanShoot = true;
     }
 
     [Button]
     public void PlayerTurnEnter()
     {
         Debug.Log("Turn Enter");
+        _currentPlayer = players[_turnManager];
+        if (firstTime)
+        {
+            PlayerSignals.Instance.onTurnEnter?.Invoke(_currentPlayer);
+            firstTime = false;
+            return;
+        }
         if (_roundPassed)
         {
             Debug.Log("It entered");
             _roundPassed = false;
             var lastFirst = players[0];
-            bool loopFinished = false;
-            for (int i = 0; i < players.Length; i++)
-            {
-                if (i + 1 == players.Length && !loopFinished) loopFinished = true; i = players.Length - 2;
-                players[i+1] = players[i];
+            Debug.Log(lastFirst);
+            for (int i = 1; i < players.Length; i++)
+            {;
+                players[i] = players[i-1];
             }
             players[3] = lastFirst;
+            players[_turnManager].SetActive(true);
+            Debug.Log(players[3]);
+            PlayerSignals.Instance.onTurnEnter?.Invoke(_currentPlayer);
+            return;
         }
-        _currentPlayer = players[_turnManager];
-        PlayerSignals.Instance.onTurnEnter?.Invoke(_currentPlayer);
+        players[_turnManager].SetActive(true);
+        PlayerSignals.Instance.onPlayerCanSHoot?.Invoke();
     }
 
     [Button]
     private void PlayerTurnExit()
     {
         Debug.Log("Left");
+        players[_turnManager].SetActive(false);
         if (_turnManager + 1 >= players.Length)
         {
             Debug.Log("Exceeded");
@@ -60,6 +65,7 @@ public class GameManager : MonoBehaviour
         }
         else _turnManager++;
         Debug.Log(_turnManager);
+        cam.transform.DORotate(cam.transform.rotation.eulerAngles + new Vector3(0f, 90f, 0f), 1f);
         PlayerTurnEnter();
     }
 }
