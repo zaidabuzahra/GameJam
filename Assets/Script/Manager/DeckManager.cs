@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Analytics;
+
 public class DeckManager : MonoBehaviour
 {
     [SerializeField]
@@ -32,16 +34,21 @@ public class DeckManager : MonoBehaviour
             cards[i].transform.DOMove(new Vector3(2f * one, 8f, 0), 1.5f);
             one = -2;
         }
-        StartCoroutine(ResetCards());
+        StartCoroutine(ResetCards(card));
     }
 
-    IEnumerator ResetCards()
+    IEnumerator ResetCards(GameObject card)
     {
         yield return new WaitForSeconds(1);
         for (int i =0; i < cards.Length; i++)
         {
+            if (cards[i] == card) continue;
             cards[i].SetActive(false);
         }
+
+        //Activate Card Effect
+
+        PlayerSignals.Instance.onPlayerCanSHoot?.Invoke();
     }
     IEnumerator TestOne(GameObject player)
     {

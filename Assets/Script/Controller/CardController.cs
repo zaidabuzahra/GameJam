@@ -13,6 +13,7 @@ public class CardController : MonoBehaviour
     {
         Played = true;
     }
+
     public void SetPos(Vector3 pos)
     {
         _originalPos = pos;

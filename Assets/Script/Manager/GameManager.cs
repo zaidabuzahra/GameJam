@@ -2,6 +2,7 @@ using Newtonsoft.Json.Serialization;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -15,7 +16,14 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         CoreGameSignals.Instance.onStartGame += PlayerTurnEnter;
+        PlayerSignals.Instance.onPlayerCanSHoot += PlayerShoot;
     }
+
+    private void PlayerShoot()
+    {
+        _currentPlayer.GetComponent<PlayerController>().CanShoot = true;
+    }
+
     [Button]
     public void PlayerTurnEnter()
     {

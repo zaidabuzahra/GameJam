@@ -10,9 +10,22 @@ public class PlayerController : MonoBehaviour
     private Camera cam;
     private Vector3 _mousePos;
     private GameObject currentCardHover;
+    public bool CanShoot;
+    public Animator PlayerAnimator;
     private void Awake()
     {
+        PlayerAnimator = GetComponent<Animator>();
         cam = Camera.main;
+    }
+
+    private void OnEnable()
+    {
+        PlayerSignals.Instance.onPlayerShoot += OnPlayerShoot;
+    }
+
+    private void OnPlayerShoot()
+    {
+        //PlayerAnimator.Play(whatever);
     }
 
     private void Update()
@@ -28,6 +41,14 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 PlayerSignals.Instance.onPlayerChoseCard?.Invoke(currentCardHover);
+            }
+        }
+
+        if (CanShoot)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                PlayerSignals.Instance.onPlayerShoot?.Invoke();
             }
         }
     }
