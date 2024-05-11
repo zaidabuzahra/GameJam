@@ -6,12 +6,22 @@ public class PlayerManager : MonoBehaviour
 {
     public Transform GunSocket;
     public Transform[] cardSockets = new Transform[3];
-    public Animator PlayerAnimator;
+
+    [SerializeField]
+    private Animator PlayerAnimator;
+
+    private static int points;
 
     private void OnEnable()
     {
         PlayerSignals.Instance.onPlayerShoot += OnPlayerShoot;
         GunSignals.Instance.onGetGunClose += OnGetGunClose;
+        PlayerSignals.Instance.onPlayerGainPoint += AdjustPoint;
+    }
+
+    private void AdjustPoint(int amount)
+    {
+        points += amount;
     }
 
     private void OnGetGunClose()

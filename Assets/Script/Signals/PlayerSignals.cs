@@ -13,4 +13,5 @@ public class PlayerSignals : MonoSingletonGithub<PlayerSignals>
     public UnityAction onPlayerCanChoose = delegate { };
     public UnityAction onPlayerSUrvive = delegate { };
     public UnityAction onPlayerDie = delegate { };
+    public UnityAction<int> onPlayerGainPoint = delegate { };
 }

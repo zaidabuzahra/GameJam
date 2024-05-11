@@ -2,6 +2,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using DG.Tweening;
 using UnityEditor;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,9 +53,14 @@ public class GameManager : MonoBehaviour
         PlayerSignals.Instance.onPlayerCanSHoot?.Invoke();
     }
 
-    [Button]
     private void PlayerTurnExit()
     {
+        StartCoroutine(ShootTimer());
+    }
+
+    IEnumerator ShootTimer()
+    {
+        yield return new WaitForSeconds(1f);
         Debug.Log("Left");
         players[_turnManager].SetActive(false);
         if (_turnManager + 1 >= players.Length)

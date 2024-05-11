@@ -16,6 +16,7 @@ public class GunController : MonoBehaviour
         GunSignals.Instance.onGetGunClose += GunGetClose;
         PlayerSignals.Instance.onPlayerSUrvive += Survive;
         PlayerSignals.Instance.onPlayerDie += Die;
+        GunSignals.Instance.onPlayAnimation += TriggerAnim;
     }
 
     private void GunGetClose()

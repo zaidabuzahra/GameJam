@@ -1,25 +1,24 @@
 using System;
-using System.Diagnostics;
 using UnityEngine;
 
-PlayerSignals.Instance.onPlayerDie?.Invoke();
+//PlayerSignals.Instance.onPlayerDie?.Invoke();
 
 public class FunctionLibrary : MonoBehaviour
 {
     public static void Function1()
     {
-        Console.WriteLine("Function 1");
-
+        Debug.Log("Function 1");
+        GunSignals.Instance.onPlayAnimation?.Invoke();
         int shot = UnityEngine.Random.Range(1, 6); 
         if(shot == 1 || shot ==2){
             PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-            // +250 to current player
+            PlayerSignals.Instance.onPlayerGainPoint?.Invoke(250);
         } else PlayerSignals.Instance.onPlayerDie?.Invoke();
     }
 
     public static void Function2()
     {
-        Console.WriteLine("Function 2");
+        UnityEngine.Debug.Log("Function 2");
         
         int shot = UnityEngine.Random.Range(1, 6); 
         if(shot == 1 || shot == 2 || shot == 3){
@@ -339,7 +338,7 @@ public class FunctionLibrary : MonoBehaviour
 
         // each player random quirk
         int ran = UnityEngine.Random.Range(1, 23);
-        FunctionLibrary.cardActivation(ran);
+        //FunctionLibrary.cardActivation(ran);
     }
 
     public static void Function23()
@@ -350,7 +349,7 @@ public class FunctionLibrary : MonoBehaviour
         // idk how 
     }
 
-    public static void cardActivation(int functionID)
+    public void cardActivation(int functionID)
     {
         UnityEngine.Debug.Log("Working just fin");
         switch (functionID)

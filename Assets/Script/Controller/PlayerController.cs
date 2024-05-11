@@ -55,8 +55,9 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.Space))
             {
                 _canShoot = false;
-                Debug.LogWarning("Space");
+                Debug.LogWarning(perk.functionNumber);
                 PlayerSignals.Instance.onPlayerShoot?.Invoke(perk.functionNumber);
+
             }
         }
     }
