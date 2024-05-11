@@ -27,11 +27,15 @@ public class GunController : MonoBehaviour
         transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 1f);
     }
 
+    private void TriggerAnim()
+    {
+        animator.SetTrigger("Fire");
+    }
     private void Shoot(int temp)
     {
         if (!player.activeSelf) return;
         Debug.Log("Fire");
-        animator.SetTrigger("Fire");
+        TriggerAnim();
         int num = Random.Range(1, 6);
         Debug.Log($"first number: {randNumber}, second number: {num}");
         //if (num == randNumber) PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
