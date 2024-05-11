@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
             players[3] = lastFirst;
         }
         _currentPlayer = players[_turnManager];
-        _currentPlayer.SetActive(true);
         PlayerSignals.Instance.onTurnEnter?.Invoke(_currentPlayer);
     }
 
@@ -53,7 +52,6 @@ public class GameManager : MonoBehaviour
     private void PlayerTurnExit()
     {
         Debug.Log("Left");
-        players[_turnManager].SetActive(false);
         if (_turnManager + 1 >= players.Length)
         {
             Debug.Log("Exceeded");
