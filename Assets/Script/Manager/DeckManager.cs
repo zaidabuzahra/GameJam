@@ -83,6 +83,7 @@ public class DeckManager : MonoBehaviour
             card.SetActive(true);
             card.transform.position = transform.position;
             card.transform.DOMove(player.GetComponent<PlayerManager>().cardSockets[i].position, 1f);
+            card.transform.DORotate(player.GetComponent<PlayerManager>().cardSockets[i].rotation.eulerAngles, 1f);
             card.transform.DOScale(new Vector3(0.6039f, 0.7672f, 0.0393f), 1f);
             cards[i] = card;
             yield return new WaitForSeconds(1f);
