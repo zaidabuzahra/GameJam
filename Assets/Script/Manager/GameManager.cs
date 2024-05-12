@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] players = new GameObject[4];
+    private int[] points = new int[4];
 
     public GameObject currentPlayer { get; private set; }
     private int _turnManager;
@@ -20,6 +21,24 @@ public class GameManager : MonoBehaviour
     {
         CoreGameSignals.Instance.onStartGame += PlayerTurnEnter;
         PlayerSignals.Instance.onTurnExit += PlayerTurnExit;
+        PlayerSignals.Instance.onPlayerGainPoint += AdjustPoint;
+    }
+
+    public int GetPoint()
+    {
+        return points[_turnManager];
+    }
+
+    public void AdjustPoint(int amount)
+    {
+        if (amount == 0) points[currentPlayer.GetComponent<PlayerManager>().id] = 0;
+        else if (amount >= 4000) points[currentPlayer.GetComponent<PlayerManager>().id] += points[currentPlayer.GetComponent<PlayerManager>().id    ];
+        else
+        {
+            Debug.LogWarning(currentPlayer.GetComponent<PlayerManager>().id);
+            points[currentPlayer.GetComponent<PlayerManager>().id] += amount;
+        }
+        Debug.LogWarning($"IN PLAYER MANAGER: {GetPoint()}");
     }
 
     [Button]
@@ -45,6 +64,7 @@ public class GameManager : MonoBehaviour
             players[3] = lastFirst;
             players[_turnManager].SetActive(true);
             currentPlayer = players[_turnManager];
+            CoreGameSignals.Instance.onResetFunction?.Invoke();
             PlayerSignals.Instance.onTurnEnter?.Invoke(currentPlayer);
             return;
         }

@@ -11,29 +11,12 @@ public class PlayerManager : MonoBehaviour
     [SerializeField]
     private Animator PlayerAnimator;
 
-    private int points;
+    public int id;
 
     private void OnEnable()
     {
         PlayerSignals.Instance.onPlayerShoot += OnPlayerShoot;
         GunSignals.Instance.onGetGunClose += OnGetGunClose;
-        PlayerSignals.Instance.onPlayerGainPoint += AdjustPoint;
-    }
-
-    public int GetPoint()
-    {
-        return this.points;
-    }
-
-    public void AdjustPoint(int amount)
-    {
-        if (amount == 0) this.points = 0;
-        else if (amount >= 4000) this.points += this.points;
-        else
-        {
-            this.points += amount;
-        }
-        Debug.LogWarning($"IN PLAYER MANAGER: {this.points}");
     }
 
     private void OnGetGunClose()

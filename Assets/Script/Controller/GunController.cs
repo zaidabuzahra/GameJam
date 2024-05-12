@@ -53,7 +53,6 @@ public class GunController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         animator.SetBool("Fire", false);
         animator.SetBool("GoBack", true);
-        Debug.LogWarning("Fire Off");
         gun.transform.DOMove(gun.GetComponent<GunController>().tableSocket.transform.position, 1f);
         gun.transform.DORotate(gun.GetComponent<GunController>().tableSocket.transform.rotation.eulerAngles, 1f);
         gun.transform.DOScale(new Vector3(0.1f, 0.1f, 0.1f), 1f);
@@ -76,7 +75,6 @@ public class GunController : MonoBehaviour
     private void GenerateNumber()
     {
         if (!player.activeSelf) return;
-        Debug.LogWarning("Reloading");
         animator.SetBool("Fire", false);
         animator.ResetTrigger("Reload");
         animator.SetTrigger("Reload");

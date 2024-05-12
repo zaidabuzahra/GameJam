@@ -21,7 +21,8 @@ public class UIManager : MonoBehaviour
     {
         playerName.text = gameManager.currentPlayer.name;
         //Debug.LogWarning(gameManager.currentPlayer);
-        int currentPoint = gameManager.currentPlayer.GetComponent<PlayerManager>().GetPoint();
+        Debug.LogWarning("Points that should be added: " + point);
+        int currentPoint = gameManager.GetPoint();
         Debug.LogWarning(currentPoint);
         points.text = (currentPoint + point).ToString();
     }

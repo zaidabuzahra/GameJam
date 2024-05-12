@@ -12,21 +12,23 @@ using UnityEngine;
 
 public class FunctionLibrary: MonoBehaviour
 {
-<<<<<<< Updated upstream
-=======
     bool f2shotNext = false;
-    int f6num = 6;
+    int f6num = 1;
+    int f6num2 = 6;
     bool f17shooter = true;
     bool f10Restart = false;
     int f10Alive = 0;
     bool f15Skip = false;
-    int f15Chosen = UnityEngine.Random.Range(1, 4);
+    //int f15Chosen = UnityEngine.Random.Range(1, 4);
     int f15PlayerNum = 0; 
-    int f21Chosen = UnityEngine.Random.Range(1, 4);
+    //int f21Chosen = UnityEngine.Random.Range(1, 4);
     int f21PLayerNum = 0;
     bool f20IsDead = false;
 
->>>>>>> Stashed changes
+    private void OnEnable()
+    {
+        CoreGameSignals.Instance.onResetFunction += RestartFunc6;
+    }
     public void Function1()
     {
         Debug.Log("Function 1");
@@ -88,17 +90,28 @@ public class FunctionLibrary: MonoBehaviour
     public void Function6()
     {
         GunSignals.Instance.onPlayAnimation?.Invoke();
-        Debug.LogWarning("Shooting started");
-        Debug.Log(numFunc6);
+        //Debug.LogWarning("Shooting started");
+        Debug.LogWarning(f6num + " " + f6num2);
 
-        int shot = UnityEngine.Random.Range(1, numFunc6);
-        if(shot == 5 || shot ==6){
+        int shot = UnityEngine.Random.Range(f6num, f6num2);
+        if (shot == 5 || shot == 6)
+        {
             PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(450);
-        }  else PlayerSignals.Instance.onPlayerDie?.Invoke();
-        numFunc6 --;
+            f6num2--;
+        }
+        else
+        {
+            PlayerSignals.Instance.onPlayerDie?.Invoke();
+            f6num++;
+        }
     }
 
+    private void RestartFunc6()
+    {
+        f6num = 1;
+        f6num2 = 6;
+    }
     public void Function7()
     {
         Console.WriteLine("Function 7");
@@ -358,15 +371,12 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 21");
 
-<<<<<<< Updated upstream
         int ran = UnityEngine.Random.Range(1, 4);
         // player number random -300 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(-300);
         // other players +100 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(100);
-=======
         f21PLayerNum ++;
-        if(f21PLayerNum == f21Chosen) PlayerSignals.Instance.onPlayerGainPoint?.Invoke(300);
+        if(f21PLayerNum == f6num) PlayerSignals.Instance.onPlayerGainPoint?.Invoke(300);
         else PlayerSignals.Instance.onPlayerGainPoint?.Invoke(-100);
->>>>>>> Stashed changes
     }
 
     public void Function22()
