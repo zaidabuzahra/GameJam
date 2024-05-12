@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 368e7f2838db24a7e934759986225bc0, type: 3}
   m_Name: Perk 16
   m_EditorClassIdentifier: 
-  cardTitle: nu UH!
+  cardTitle: Oops!
   cardDescription: 'No perks this round. +500pts on survival. '
   cardImage: {fileID: 0}
   functionNumber: 16

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Perk 5
   m_EditorClassIdentifier: 
   cardTitle: AMERICAAAAA
-  cardDescription: Shoot the next player. +250pts on kill.
+  cardDescription: Shoot the next player. +250pts on kill, -100pts on survival.
   cardImage: {fileID: 0}
   functionNumber: 5
