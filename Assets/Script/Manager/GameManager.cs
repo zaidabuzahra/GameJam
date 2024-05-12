@@ -8,8 +8,9 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] players = new GameObject[4];
+    private int[] points = new int[4];
 
-    private GameObject _currentPlayer;
+    public GameObject currentPlayer { get; private set; }
     private int _turnManager;
     private bool _roundPassed = false, firstTime = true;
 
@@ -20,16 +21,34 @@ public class GameManager : MonoBehaviour
     {
         CoreGameSignals.Instance.onStartGame += PlayerTurnEnter;
         PlayerSignals.Instance.onTurnExit += PlayerTurnExit;
+        PlayerSignals.Instance.onPlayerGainPoint += AdjustPoint;
+    }
+
+    public int GetPoint()
+    {
+        return points[_turnManager];
+    }
+
+    public void AdjustPoint(int amount)
+    {
+        if (amount == 0) points[currentPlayer.GetComponent<PlayerManager>().id] = 0;
+        else if (amount >= 4000) points[currentPlayer.GetComponent<PlayerManager>().id] += points[currentPlayer.GetComponent<PlayerManager>().id    ];
+        else
+        {
+            Debug.LogWarning(currentPlayer.GetComponent<PlayerManager>().id);
+            points[currentPlayer.GetComponent<PlayerManager>().id] += amount;
+        }
+        Debug.LogWarning($"IN PLAYER MANAGER: {GetPoint()}");
     }
 
     [Button]
     public void PlayerTurnEnter()
     {
         Debug.Log("-------Enter Turn Enter------");
-        _currentPlayer = players[_turnManager];
+        currentPlayer = players[_turnManager];
         if (firstTime)
         {
-            PlayerSignals.Instance.onTurnEnter?.Invoke(_currentPlayer);
+            PlayerSignals.Instance.onTurnEnter?.Invoke(currentPlayer);
             firstTime = false;
             return;
         }
@@ -44,8 +63,9 @@ public class GameManager : MonoBehaviour
             }
             players[3] = lastFirst;
             players[_turnManager].SetActive(true);
-            _currentPlayer = players[_turnManager];
-            PlayerSignals.Instance.onTurnEnter?.Invoke(_currentPlayer);
+            currentPlayer = players[_turnManager];
+            CoreGameSignals.Instance.onResetFunction?.Invoke();
+            PlayerSignals.Instance.onTurnEnter?.Invoke(currentPlayer);
             return;
         }
         Debug.Log("-----Next Player");

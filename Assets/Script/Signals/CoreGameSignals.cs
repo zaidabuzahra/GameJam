@@ -6,4 +6,5 @@ using UnityEngine.Events;
 public class CoreGameSignals : MonoSingletonGithub<CoreGameSignals>
 {
     public UnityAction onStartGame = delegate { };
+    public UnityAction onResetFunction = delegate { };
 }

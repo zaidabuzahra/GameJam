@@ -61,7 +61,7 @@ public class DeckManager : MonoBehaviour
     IEnumerator ShowText(GameObject card)
     {
         Debug.Log("HUH");
-        cardText.GetComponent<TextMeshPro>().text = perks[card.GetComponent<CardController>().perk.functionNumber].cardDescription;
+        cardText.GetComponent<TextMeshPro>().text = perks[card.GetComponent<CardController>().perk.functionNumber - 1].cardDescription;
         cardText.SetActive(true);
         yield return new WaitForSeconds(1);
         GunSignals.Instance.onGetGunClose?.Invoke();
