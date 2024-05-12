@@ -15,5 +15,5 @@ MonoBehaviour:
   cardTitle: All or Nothing
   cardDescription: 'Load 3 live bullets in revolver. Double current points on survival
     but Lose all points in death. '
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 2800000, guid: a6eafdc0bd1c2ad47b2c88e34223bd56, type: 3}
   functionNumber: 14

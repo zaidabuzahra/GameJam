@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardTitle: ONE ONE MORE chances!!!
   cardDescription: -3 live bullets. +100pts on survival.
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 2800000, guid: 475dd63394318744988e589636ec1a7f, type: 3}
   functionNumber: 3

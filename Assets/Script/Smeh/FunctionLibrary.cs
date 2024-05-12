@@ -372,6 +372,7 @@ public class FunctionLibrary: MonoBehaviour
     public void Function19()
     {
         count++;
+        if (count > 6) return;
         // flipped survive and death since we want to die 6 times in a row
         int shot = UnityEngine.Random.Range(1, 6);
         if (shot == 1)

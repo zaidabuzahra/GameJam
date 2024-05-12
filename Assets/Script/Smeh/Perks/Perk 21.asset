@@ -15,5 +15,5 @@ MonoBehaviour:
   cardTitle: All for One
   cardDescription: Take 100pts from 3 random players to give 300pts to the 4th player.
     No shooting this round.
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 2800000, guid: d9165cc88aa13284f8ed23d554e2478a, type: 3}
   functionNumber: 21

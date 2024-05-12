@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardTitle: A Small Price to Pay for Salvation
   cardDescription: A player has to die or everyone dies forever. (Restart the game)
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 2800000, guid: 0c46661b25cea0a4da6ab45de75835db, type: 3}
   functionNumber: 10
