@@ -27,7 +27,6 @@ public class GunController : MonoBehaviour
     private void GunGetClose()
     {
         if (!player.activeSelf) return;
-        Debug.Log("GunGetClose");
         transform.DOMove(player.GetComponent<PlayerManager>().GunSocket.position, 1f);
         transform.DORotate(player.GetComponent<PlayerManager>().GunSocket.rotation.eulerAngles, 1f);
         transform.DOScale(new Vector3(0.2f, 0.2f, 0.2f), 1f);
@@ -61,6 +60,7 @@ public class GunController : MonoBehaviour
     private void Survive()
     {
         if (!player.activeSelf) return;
+        Debug.Log("YOU SURVIVED");
         //animator.SetBool("Fire", false);
         PlayerSignals.Instance.onTurnExit?.Invoke();
     }
@@ -68,6 +68,7 @@ public class GunController : MonoBehaviour
     private void Die()
     {
         if (!player.activeSelf) return;
+        Debug.Log("YOU DIED");
         //animator.SetBool("Fire", false);
         PlayerSignals.Instance.onTurnExit?.Invoke();
     }

@@ -60,7 +60,6 @@ public class DeckManager : MonoBehaviour
 
     IEnumerator ShowText(GameObject card)
     {
-        Debug.Log("HUH");
         cardText.GetComponent<TextMeshPro>().text = perks[card.GetComponent<CardController>().perk.functionNumber - 1].cardDescription;
         cardText.SetActive(true);
         yield return new WaitForSeconds(1);
@@ -73,11 +72,10 @@ public class DeckManager : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            Debug.Log("Card");
             var card = cards[i];
 
-            var data = perks[UnityEngine.Random.Range(1,23)];
-            data = perks[5];
+            var data = perks[UnityEngine.Random.Range(0,21)];
+            data = perks[18];
             card.GetComponent<CardController>().perk = data;
             //PlayerSignals.Instance.onPlayerShoot = soLibrary.cardActivation;
             card.SetActive(true);

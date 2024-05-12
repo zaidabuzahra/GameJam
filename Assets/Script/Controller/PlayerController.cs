@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
         if (_canShoot)
         {
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 _canShoot = false;
                 Debug.LogWarning(perk.functionNumber);

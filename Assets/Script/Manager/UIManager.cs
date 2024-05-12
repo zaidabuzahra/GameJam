@@ -29,7 +29,6 @@ public class UIManager : MonoBehaviour
 
     private void Shot(int temp)
     {
-        Debug.Log("TextUpdated");
         shootText.SetActive(false);
     }
 

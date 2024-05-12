@@ -26,6 +26,7 @@ public class FunctionLibrary: MonoBehaviour
     int f21Chosen;
     int f21PLayerNum = 0;
     bool f20IsDead = false;
+    int count = 0;
 
     private void Awake()
     {
@@ -35,6 +36,7 @@ public class FunctionLibrary: MonoBehaviour
     private void OnEnable()
     {
         CoreGameSignals.Instance.onResetFunction += RestartFunc6;
+        CoreGameSignals.Instance.onResetPerTurn += RestartPerTurn;
     }
 
     public void Function1()
@@ -128,6 +130,12 @@ public class FunctionLibrary: MonoBehaviour
         f6num2 = 6;
     }
 
+    private void RestartPerTurn()
+    {
+        count = 0;
+        Debug.LogWarning("Function Restarted");
+    }
+
     public void Function7()
     {
         Console.WriteLine("Function 7");
@@ -213,7 +221,7 @@ public class FunctionLibrary: MonoBehaviour
 
     public void Function11()
     {
-        Console.WriteLine("Function 11");
+        Debug.LogWarning(count);
 
         int shot = UnityEngine.Random.Range(1, 6); 
         if(shot != 1){
@@ -363,18 +371,22 @@ public class FunctionLibrary: MonoBehaviour
 
     public void Function19()
     {
-        Console.WriteLine("Function 19");
-
+        count++;
         // flipped survive and death since we want to die 6 times in a row
-        int shot = UnityEngine.Random.Range(1, 6); 
-        for(int i=0; i<7; i++){
-            if(shot == 1){
-                PlayerSignals.Instance.onPlayerDie?.Invoke();
-                return;
-            }
+        int shot = UnityEngine.Random.Range(1, 6);
+        if (shot == 1)
+        {
+            Debug.LogWarning(count);
+            PlayerSignals.Instance.onPlayerDie?.Invoke();
+            return;
+        }
+        Debug.Log(count);
+        PlayerSignals.Instance.onPlayerCanSHoot?.Invoke();
+        //shot = UnityEngine.Random.Range(1, 6);
+        if (count == 6)
+        {
+            PlayerSignals.Instance.onPlayerGainPoint?.Invoke(750);
             PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-            shot = UnityEngine.Random.Range(1, 6);
-            if (i == 6) PlayerSignals.Instance.onPlayerGainPoint?.Invoke(750);
         }
     }
 

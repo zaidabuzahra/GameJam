@@ -91,6 +91,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         Debug.Log("-----Enter TurnExit-----");
+        CoreGameSignals.Instance.onResetPerTurn?.Invoke();
         GunSignals.Instance.onGetGunBack?.Invoke(players[_turnManager].GetComponent<PlayerManager>().Gun);
         players[_turnManager].SetActive(false);
         if (_turnManager + 1 >= players.Length)
@@ -101,8 +102,8 @@ public class GameManager : MonoBehaviour
         }
         else _turnManager++;
         Debug.Log(_turnManager);
-        RotateCamera();
         Debug.Log("------Leave TurnExit-----");
+        RotateCamera();
         PlayerTurnEnter();
     }
 }
