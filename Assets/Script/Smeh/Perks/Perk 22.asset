@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardTitle: Quirky
   cardDescription: Each player geta a random quirk special for them. +500pts on survival.
-  cardImage: {fileID: 21300000, guid: 87e2be736d4ff76439157d290e87a458, type: 3}
+  cardImage: {fileID: 0}
   functionNumber: 22

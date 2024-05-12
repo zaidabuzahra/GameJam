@@ -15,5 +15,5 @@ MonoBehaviour:
   cardTitle: Nothing Personal Kid
   cardDescription: On survival, reload and shoot another player. +500 on survival
     and +200 on kill.
-  cardImage: {fileID: 21300000, guid: ce3448f344925ba4495df85c6b48355b, type: 3}
+  cardImage: {fileID: 0}
   functionNumber: 20

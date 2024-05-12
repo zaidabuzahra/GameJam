@@ -15,5 +15,5 @@ MonoBehaviour:
   cardTitle: One Chance to Die
   cardDescription: Reverse all live bullets with empty shells and vice versa. +100pts
     on survival.
-  cardImage: {fileID: 21300000, guid: a15dcb129005e7c45b38237b119183c7, type: 3}
+  cardImage: {fileID: 0}
   functionNumber: 11

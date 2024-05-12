@@ -15,5 +15,5 @@ MonoBehaviour:
   cardTitle: Last Man Standing
   cardDescription: A random player is destined to be the only survivor. +400pts for
     the survivor.
-  cardImage: {fileID: 21300000, guid: b33eebf3112961742a024edaf4c8d307, type: 3}
+  cardImage: {fileID: 0}
   functionNumber: 15

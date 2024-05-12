@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardTitle: Double the Trouble
   cardDescription: Every player shoots himself twice. +2000pts on survival.
-  cardImage: {fileID: 21300000, guid: 3f8be8edf435c544e99518b727c44e14, type: 3}
+  cardImage: {fileID: 0}
   functionNumber: 9

@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardTitle: Death is not the end
   cardDescription: Each player shoots himself till survival. -100pts per death.
-  cardImage: {fileID: 21300000, guid: cb107a7bd9170bb4ca601083d1094ce8, type: 3}
+  cardImage: {fileID: 0}
   functionNumber: 18

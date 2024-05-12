@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardTitle: Oops!
   cardDescription: 'No perks this round. +500pts on survival. '
-  cardImage: {fileID: 21300000, guid: 6bcea5db9fb1dbd4fb2d28fdf8d01597, type: 3}
+  cardImage: {fileID: 0}
   functionNumber: 16
