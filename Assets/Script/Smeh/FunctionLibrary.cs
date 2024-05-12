@@ -4,6 +4,7 @@ using System.Globalization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.WSA;
 
 //PlayerSignals.Instance.onPlayerDie?.Invoke();
 
@@ -14,19 +15,21 @@ using UnityEngine.SceneManagement;
 
 public class FunctionLibrary: MonoBehaviour
 {
+    public GameManager gameManager;
     bool f2shotNext = false;
     int f6num = 1;
     int f6num2 = 6;
+    int f12shots = 0;
+    int f12wins = 0;
     bool f17shooter = true;
     bool f10Restart = false;
     int f10Alive = 0;
-    bool f15Skip = false;
     int f15Chosen;
     int f15PlayerNum = 0;
+    int f19count = 0;
     int f21Chosen;
     int f21PLayerNum = 0;
     bool f20IsDead = false;
-    int count = 0;
 
     private void Awake()
     {
@@ -55,8 +58,8 @@ public class FunctionLibrary: MonoBehaviour
         
         int shot = UnityEngine.Random.Range(1,4); 
         if(shot == 1){
-            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(150);
+            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
         } else PlayerSignals.Instance.onPlayerDie?.Invoke();
     }
 
@@ -66,8 +69,8 @@ public class FunctionLibrary: MonoBehaviour
         
         int shot = UnityEngine.Random.Range(1, 6); 
         if(shot == 1 || shot == 2 || shot == 3 || shot == 4){
-            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(100);
+            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
         } else PlayerSignals.Instance.onPlayerDie?.Invoke();
     }
 
@@ -79,12 +82,12 @@ public class FunctionLibrary: MonoBehaviour
         if(shot != 1){
             shot = UnityEngine.Random.Range(1, 5);
             if(shot == 1){
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(250);
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             } else PlayerSignals.Instance.onPlayerDie?.Invoke(); 
         }  else {
-            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(250);
+            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
         }
     }
 
@@ -97,12 +100,15 @@ public class FunctionLibrary: MonoBehaviour
             return;
         } 
 
-        // shoot next player
         int shot = UnityEngine.Random.Range(1, 6); 
         if(shot != 1){
             f2shotNext = true;
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(250);
-        } else PlayerSignals.Instance.onPlayerGainPoint?.Invoke(-100);;
+            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
+        } else {
+            PlayerSignals.Instance.onPlayerGainPoint?.Invoke(-100);
+            PlayerSignals.Instance.onPlayerDie?.Invoke();
+            }
     }
 
     public void Function6()
@@ -113,8 +119,8 @@ public class FunctionLibrary: MonoBehaviour
         int shot = UnityEngine.Random.Range(f6num, f6num2);
         if (shot == 5 || shot == 6)
         {
-            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(450);
+            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             f6num2--;
         }
         else
@@ -132,7 +138,7 @@ public class FunctionLibrary: MonoBehaviour
 
     private void RestartPerTurn()
     {
-        count = 0;
+        f19count = 0;
         Debug.LogWarning("Function Restarted");
     }
 
@@ -145,32 +151,32 @@ public class FunctionLibrary: MonoBehaviour
         switch(ran){
             case 1:
             if(shot == 1){
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(500);
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 } else PlayerSignals.Instance.onPlayerDie?.Invoke();   
                 break;
             case 2:
             if(shot == 1 || shot == 2){
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(200);
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 } else PlayerSignals.Instance.onPlayerDie?.Invoke();   
                 break;
             case 3:
             if(shot == 1 || shot == 2 || shot == 3){
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(150);
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 } else PlayerSignals.Instance.onPlayerDie?.Invoke();   
                 break;
             case 4:
             if(shot == 1 || shot == 2|| shot == 3 || shot == 4){
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(100);
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 } else PlayerSignals.Instance.onPlayerDie?.Invoke();   
                 break;
             case 5:
             if(shot == 1 || shot == 2 || shot == 3 || shot == 4 || shot == 5){
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(50);
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 } else PlayerSignals.Instance.onPlayerDie?.Invoke();
                 break;
             default:
@@ -187,7 +193,9 @@ public class FunctionLibrary: MonoBehaviour
         int shot = UnityEngine.Random.Range(1, 6); 
         if(shot != 1){
             PlayerSignals.Instance.onPlayerDie?.Invoke();
-            // end turn
+
+            gameManager.RoundPass();
+            PlayerSignals.Instance.onTurnExit?.Invoke();
         } else PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
     }
 
@@ -199,9 +207,9 @@ public class FunctionLibrary: MonoBehaviour
         if(shot == 1){
             shot = UnityEngine.Random.Range(1, 6);
             if(shot == 1){
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(2000);
-            } else PlayerSignals.Instance.onPlayerDie?.Invoke(); 
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
+            } else PlayerSignals.Instance.onPlayerDie?.Invoke();
         } else PlayerSignals.Instance.onPlayerDie?.Invoke();
     }
 
@@ -210,7 +218,10 @@ public class FunctionLibrary: MonoBehaviour
         Console.WriteLine("Function 10");
 
         if(f10Restart) SceneManager.LoadScene("Sample Scene");
-        if(f10Alive == 4) f10Restart = true;
+        if(f10Alive == 4) {
+            f10Restart = true;
+            PlayerSignals.Instance.onTurnExit?.Invoke();
+        }
 
         int shot = UnityEngine.Random.Range(1, 6); 
         if(shot == 1){
@@ -221,12 +232,12 @@ public class FunctionLibrary: MonoBehaviour
 
     public void Function11()
     {
-        Debug.LogWarning(count);
+        Debug.LogWarning(f19count);
 
         int shot = UnityEngine.Random.Range(1, 6); 
         if(shot != 1){
-            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(200);
+            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
         } else PlayerSignals.Instance.onPlayerDie?.Invoke();
     }
 
@@ -234,16 +245,18 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 12");
 
-        int shot = UnityEngine.Random.Range(1, 6); 
+        int shot = UnityEngine.Random.Range(1, 6);
+        f12shots ++; 
         if(shot == 1){
-            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-            PlayerSignals.Instance.onPlayerGainPoint?.Invoke(250);
+            f12wins++;
+            if(f12shots == 1) PlayerSignals.Instance.onPlayerCanSHoot?.Invoke();
+            else{
+                if(f12wins == 1) PlayerSignals.Instance.onPlayerGainPoint?.Invoke(250);
+                else PlayerSignals.Instance.onPlayerGainPoint?.Invoke(1000);
+            }  
         } else {
-            shot = UnityEngine.Random.Range(1, 6); 
-            if(shot == 1){
-            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-            PlayerSignals.Instance.onPlayerGainPoint?.Invoke(250);
-        }else PlayerSignals.Instance.onPlayerDie?.Invoke();
+            if(f12shots == 1) PlayerSignals.Instance.onPlayerCanSHoot?.Invoke();
+            else PlayerSignals.Instance.onPlayerDie?.Invoke();
         }
     }
 
@@ -251,38 +264,37 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 13");
 
-        // repeat for each player
         int bullets = UnityEngine.Random.Range(1, 6);
         int shot = UnityEngine.Random.Range(1, 6);
         switch(bullets){
             case 1:
             if(shot == 1 || shot ==2 || shot == 3 || shot == 4 || shot == 5){
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(400);
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 } else PlayerSignals.Instance.onPlayerDie?.Invoke();
                 break;
             case 2:
             if(shot == 1 || shot ==2|| shot == 3 || shot == 4){
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(400);
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 } else PlayerSignals.Instance.onPlayerDie?.Invoke();   
                 break;
             case 3:
             if(shot == 1 || shot ==2 || shot == 3){
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(400);
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 } else PlayerSignals.Instance.onPlayerDie?.Invoke();   
                 break;
             case 4:
             if(shot == 1 || shot ==2){
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(400);
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 } else PlayerSignals.Instance.onPlayerDie?.Invoke();   
                 break;
             case 5:
             if(shot == 1){
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(400);
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 } else PlayerSignals.Instance.onPlayerDie?.Invoke();   
                 break;
             default:
@@ -295,13 +307,13 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 14");
 
-        int shot = UnityEngine.Random.Range(1, 6); 
-        if(shot == 1 || shot == 2 || shot == 3){
-            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
+        int shot = UnityEngine.Random.Range(1, 2); 
+        if(shot == 1){
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(4000);
+            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
         } else {
-            PlayerSignals.Instance.onPlayerDie?.Invoke();
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(0);
+            PlayerSignals.Instance.onPlayerDie?.Invoke();
             }
     }
 
@@ -309,22 +321,21 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 15");
 
-        if(f15Skip) return;
         f15PlayerNum ++;
 
         int shot = UnityEngine.Random.Range(1, 6);
         if(f15PlayerNum == f15Chosen){
             if(shot == 1){
-                f15Skip = true;
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(400);
+                gameManager.RoundPass();
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
+            } else PlayerSignals.Instance.onPlayerDie?.Invoke();
+        }else {
+            if(shot == 1){
+                gameManager.RoundPass();
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             } else PlayerSignals.Instance.onPlayerDie?.Invoke();
         }
-        if(shot == 1){
-            f15Skip = true;
-            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-
-        } else PlayerSignals.Instance.onPlayerDie?.Invoke();
     }
 
     public void Function16()
@@ -342,92 +353,94 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 17");
 
-        if(!f17shooter) return;
+        if(!f17shooter) PlayerSignals.Instance.onTurnExit?.Invoke();
+
         int shot = UnityEngine.Random.Range(1, 100); 
         if(shot == 1){
             f17shooter = false;
-            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(5000);
+            gameManager.RoundPass();
+            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
         } else PlayerSignals.Instance.onPlayerDie?.Invoke();
     }
 
+    int f18shotNum = 6;
     public void Function18()
     {
         Console.WriteLine("Function 18");
-
-        int i = 6;
-        int shot = UnityEngine.Random.Range(1, i); 
-        while(shot != 1){
+        
+        int shot = UnityEngine.Random.Range(1, f18shotNum); 
+        if(shot != 1){
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(-100);
-            i --;
-            shot = UnityEngine.Random.Range(1, i);
-            if(shot == 1){
-                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-                return;
-            }
-        }
-        PlayerSignals.Instance.onPlayerDie?.Invoke();
+            f18shotNum --;
+            if(f18shotNum == 1) PlayerSignals.Instance.onPlayerDie?.Invoke();
+        } else PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
     }
 
     public void Function19()
     {
-        count++;
+        f19count++;
         // flipped survive and death since we want to die 6 times in a row
         int shot = UnityEngine.Random.Range(1, 6);
         if (shot == 1)
         {
-            Debug.LogWarning(count);
+            Debug.LogWarning(f19count);
             PlayerSignals.Instance.onPlayerDie?.Invoke();
             return;
         }
-        Debug.Log(count);
+        Debug.Log(f19count);
         PlayerSignals.Instance.onPlayerCanSHoot?.Invoke();
-        //shot = UnityEngine.Random.Range(1, 6);
-        if (count == 6)
+        if (f19count == 6)
         {
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(750);
             PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
         }
     }
-
     public void Function20()
     {
         Console.WriteLine("Function 20");
 
-        if(f20IsDead){
-            f20IsDead = false;
-            return;
-        }
-        int shot = UnityEngine.Random.Range(1, 6); 
-        if(shot == 1){
-            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-            shot = UnityEngine.Random.Range(1, 6);
-            // shoot next player
-            if(shot!=1){
-                f20IsDead = true;
-                PlayerSignals.Instance.onPlayerGainPoint?.Invoke(500);
-            }
-        } else PlayerSignals.Instance.onPlayerDie?.Invoke();
-    }
-
-
-    public void Function21()
-    {
-        Console.WriteLine("Function 21");
-
         int ran = UnityEngine.Random.Range(1, 4);
         f21PLayerNum ++;
-        if(f21PLayerNum == f21Chosen) PlayerSignals.Instance.onPlayerGainPoint?.Invoke(300);
-        else PlayerSignals.Instance.onPlayerGainPoint?.Invoke(-100);
+        if(f21PLayerNum == f21Chosen) {
+            PlayerSignals.Instance.onPlayerGainPoint?.Invoke(300);
+            PlayerSignals.Instance.onTurnExit?.Invoke();
+        }
+        else {
+            PlayerSignals.Instance.onPlayerGainPoint?.Invoke(-100);
+            PlayerSignals.Instance.onTurnExit?.Invoke();
+        }
     }
 
-    public void Function22()
-    {
-        Console.WriteLine("Function 22");
+    // public void Function21()
+    // {
+    //     Console.WriteLine("Function 21");
 
-        int ran = UnityEngine.Random.Range(1, 22);
-        cardActivation(ran);
-    }
+    //     if(f20IsDead){
+    //         f20IsDead = false;
+    //         return;
+    //     }
+    //     int shot = UnityEngine.Random.Range(1, 6); 
+    //     if(shot == 1){
+    //         PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
+    //         shot = UnityEngine.Random.Range(1, 6);
+    //         // shoot next player
+    //         if(shot!=1){
+    //             f20IsDead = true;
+    //             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(500);
+    //         }
+    //     } else PlayerSignals.Instance.onPlayerDie?.Invoke();
+    // }
+
+
+
+    // public void Function22()
+    // {
+    //     Console.WriteLine("Function 22");
+
+    //     int ran = UnityEngine.Random.Range(1, 22);
+    //     cardActivation(ran);
+    // }
 
     public void cardActivation(int functionID)
     {
@@ -494,12 +507,12 @@ public class FunctionLibrary: MonoBehaviour
             case 20:
                 Function20();
                 break;
-            case 21:
-                Function21();
-                break;
-            case 22:
-                Function22();
-                break;
+            // case 21:
+            //     Function21();
+            //     break;
+            // case 22:
+            //     Function22();
+            //     break;
             default:
                 Console.WriteLine("Invalid function ID.");
                 break;

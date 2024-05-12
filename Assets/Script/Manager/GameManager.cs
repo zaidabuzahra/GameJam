@@ -29,6 +29,11 @@ public class GameManager : MonoBehaviour
         return points[_turnManager];
     }
 
+    public void RoundPass()
+    {
+        _roundPassed = true;
+    }
+
     public void AdjustPoint(int amount)
     {
         if (amount == 0) points[currentPlayer.GetComponent<PlayerManager>().id] = 0;
