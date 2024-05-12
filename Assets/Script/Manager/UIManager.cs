@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] GameObject playButon, shootText;
+    [SerializeField] GameObject playButon, shootText, startMenu;
     [SerializeField] GameManager gameManager;
     [SerializeField] TextMeshProUGUI points, playerName;
     private void OnEnable()
@@ -40,6 +40,7 @@ public class UIManager : MonoBehaviour
     private void HideButton()
     {
         playButon.SetActive(false);
+        startMenu.SetActive(false);
     }
 
     public static void OnClickPlay()

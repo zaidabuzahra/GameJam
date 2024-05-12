@@ -29,6 +29,11 @@ public class GameManager : MonoBehaviour
         return points[_turnManager];
     }
 
+    public void RoundPass()
+    {
+        _roundPassed = true;
+    }
+
     public void AdjustPoint(int amount)
     {
         if (amount == 0) points[currentPlayer.GetComponent<PlayerManager>().id] = 0;
@@ -39,6 +44,10 @@ public class GameManager : MonoBehaviour
             points[currentPlayer.GetComponent<PlayerManager>().id] += amount;
         }
         Debug.LogWarning($"IN PLAYER MANAGER: {GetPoint()}");
+
+        if(points[currentPlayer.GetComponent<PlayerManager>().id] >=4000){
+            Debug.Log("Player " + (currentPlayer.GetComponent<PlayerManager>().id + 1) + " is the winner!!");
+        }
     }
 
     [Button]
