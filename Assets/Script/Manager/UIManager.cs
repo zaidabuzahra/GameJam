@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] GameObject playButon, shootText;
-    [SerializeField] TextMeshProUGUI points;
+    [SerializeField] GameManager gameManager;
+    [SerializeField] TextMeshProUGUI points, playerName;
     private void OnEnable()
     {
         CoreGameSignals.Instance.onStartGame += HideButton;
@@ -18,7 +19,11 @@ public class UIManager : MonoBehaviour
 
     private void Points(int point)
     {
-        points.text = point.ToString();
+        playerName.text = gameManager.currentPlayer.name;
+        //Debug.LogWarning(gameManager.currentPlayer);
+        int currentPoint = gameManager.currentPlayer.GetComponent<PlayerManager>().GetPoint();
+        Debug.LogWarning(currentPoint);
+        points.text = (currentPoint + point).ToString();
     }
 
     private void Shot(int temp)

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject[] players = new GameObject[4];
 
-    private GameObject _currentPlayer;
+    public GameObject currentPlayer { get; private set; }
     private int _turnManager;
     private bool _roundPassed = false, firstTime = true;
 
@@ -26,10 +26,10 @@ public class GameManager : MonoBehaviour
     public void PlayerTurnEnter()
     {
         Debug.Log("-------Enter Turn Enter------");
-        _currentPlayer = players[_turnManager];
+        currentPlayer = players[_turnManager];
         if (firstTime)
         {
-            PlayerSignals.Instance.onTurnEnter?.Invoke(_currentPlayer);
+            PlayerSignals.Instance.onTurnEnter?.Invoke(currentPlayer);
             firstTime = false;
             return;
         }
@@ -44,8 +44,8 @@ public class GameManager : MonoBehaviour
             }
             players[3] = lastFirst;
             players[_turnManager].SetActive(true);
-            _currentPlayer = players[_turnManager];
-            PlayerSignals.Instance.onTurnEnter?.Invoke(_currentPlayer);
+            currentPlayer = players[_turnManager];
+            PlayerSignals.Instance.onTurnEnter?.Invoke(currentPlayer);
             return;
         }
         Debug.Log("-----Next Player");

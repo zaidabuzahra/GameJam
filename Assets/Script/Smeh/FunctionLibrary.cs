@@ -82,7 +82,7 @@ public class FunctionLibrary: MonoBehaviour
         Debug.Log(numFunc6);
 
         int shot = UnityEngine.Random.Range(1, numFunc6);
-        if(shot == 1 || shot ==2){
+        if(shot == 5 || shot ==6){
             PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(450);
         }  else PlayerSignals.Instance.onPlayerDie?.Invoke();
