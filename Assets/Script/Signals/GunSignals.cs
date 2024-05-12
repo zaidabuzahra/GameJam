@@ -7,4 +7,5 @@ public class GunSignals : MonoSingletonGithub<GunSignals>
 {
     public UnityAction onGetGunClose = delegate { };
     public UnityAction onPlayAnimation = delegate { };
+    public UnityAction<GameObject> onGetGunBack = delegate { };
 }

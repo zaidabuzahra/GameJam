@@ -6,7 +6,7 @@ using UnityEngine;
 public class GunController : MonoBehaviour
 {
     [SerializeField] Animator animator;
-    [SerializeField] private GameObject player;
+    [SerializeField] private GameObject player, tableSocket;
     private int randNumber;
 
     private void OnEnable()
@@ -17,8 +17,13 @@ public class GunController : MonoBehaviour
         PlayerSignals.Instance.onPlayerSUrvive += Survive;
         PlayerSignals.Instance.onPlayerDie += Die;
         GunSignals.Instance.onPlayAnimation += TriggerAnim;
+        GunSignals.Instance.onGetGunBack += BackToNormal;
     }
 
+    private void BackToNormal(GameObject gun)
+    {
+        StartCoroutine(BackTo(gun));
+    }
     private void GunGetClose()
     {
         if (!player.activeSelf) return;
@@ -30,12 +35,12 @@ public class GunController : MonoBehaviour
 
     private void TriggerAnim()
     {
-        animator.SetTrigger("Fire");
+        animator.SetBool("Fire", true);
+        animator.SetBool("GoBack", false);
     }
     private void Shoot(int temp)
     {
         if (!player.activeSelf) return;
-        Debug.Log("Fire");
         TriggerAnim();
         int num = Random.Range(1, 6);
         Debug.Log($"first number: {randNumber}, second number: {num}");
@@ -43,24 +48,37 @@ public class GunController : MonoBehaviour
         else PlayerSignals.Instance.onPlayerDie?.Invoke();
     }
 
+    IEnumerator BackTo(GameObject gun)
+    {
+        yield return new WaitForSeconds(1f);
+        animator.SetBool("Fire", false);
+        animator.SetBool("GoBack", true);
+        Debug.LogWarning("Fire Off");
+        gun.transform.DOMove(gun.GetComponent<GunController>().tableSocket.transform.position, 1f);
+        gun.transform.DORotate(gun.GetComponent<GunController>().tableSocket.transform.rotation.eulerAngles, 1f);
+        gun.transform.DOScale(new Vector3(0.1f, 0.1f, 0.1f), 1f);
+    }
+
     private void Survive()
     {
         if (!player.activeSelf) return;
-        Debug.Log("YOU SURVIVE");
+        //animator.SetBool("Fire", false);
         PlayerSignals.Instance.onTurnExit?.Invoke();
     }
 
     private void Die()
     {
         if (!player.activeSelf) return;
-        Debug.Log("YOU DIE");
+        //animator.SetBool("Fire", false);
         PlayerSignals.Instance.onTurnExit?.Invoke();
     }
 
     private void GenerateNumber()
     {
         if (!player.activeSelf) return;
-        Debug.Log("GenereateNumber");
+        Debug.LogWarning("Reloading");
+        animator.SetBool("Fire", false);
+        animator.ResetTrigger("Reload");
         animator.SetTrigger("Reload");
         randNumber = Random.Range(1, 6);
     }

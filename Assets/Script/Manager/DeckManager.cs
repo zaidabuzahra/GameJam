@@ -61,11 +61,11 @@ public class DeckManager : MonoBehaviour
     IEnumerator ShowText(GameObject card)
     {
         Debug.Log("HUH");
-        cardText.GetComponent<TextMeshPro>().text = perks[0].cardDescription;
+        cardText.GetComponent<TextMeshPro>().text = perks[card.GetComponent<CardController>().perk.functionNumber].cardDescription;
         cardText.SetActive(true);
         yield return new WaitForSeconds(1);
         GunSignals.Instance.onGetGunClose?.Invoke();
-        //PlayerSignals.Instance.onPlayerShoot = soLibrary.cardActivation;//card.GetComponent<CardController>().perk.functionNumber;
+        PlayerSignals.Instance.onPlayerShoot = soLibrary.cardActivation;
         yield return new WaitForSeconds(1);
         PlayerSignals.Instance.onPlayerCanSHoot?.Invoke();
     }
@@ -79,7 +79,7 @@ public class DeckManager : MonoBehaviour
             var data = perks[UnityEngine.Random.Range(1,23)];
             data = perks[5];
             card.GetComponent<CardController>().perk = data;
-            PlayerSignals.Instance.onPlayerShoot = soLibrary.cardActivation;
+            //PlayerSignals.Instance.onPlayerShoot = soLibrary.cardActivation;
             card.SetActive(true);
             card.transform.position = transform.position;
             card.transform.DOMove(player.GetComponent<PlayerManager>().cardSockets[i].position, 1f);

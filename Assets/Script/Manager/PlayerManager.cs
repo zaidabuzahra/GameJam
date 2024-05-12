@@ -6,6 +6,7 @@ public class PlayerManager : MonoBehaviour
 {
     public Transform GunSocket;
     public Transform[] cardSockets = new Transform[3];
+    public GameObject Gun;
 
     [SerializeField]
     private Animator PlayerAnimator;
@@ -36,7 +37,6 @@ public class PlayerManager : MonoBehaviour
 
     private void OnGetGunClose()
     {
-        Debug.Log("Works");
         //PlayerAnimator.SetTrigger("PickUp");
     }
     private void OnPlayerShoot(int temp)

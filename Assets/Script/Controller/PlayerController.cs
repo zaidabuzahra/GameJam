@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
     }
     private void PlayerShoot()
     {
-        Debug.Log("For some reason he is allowed to shoot");
         _canShoot = true;
     }
 
@@ -42,7 +41,6 @@ public class PlayerController : MonoBehaviour
             currentCardHover = rayHit.transform.gameObject;
             if (Input.GetMouseButtonDown(0) && _canChoose)
             {
-                Debug.LogWarning("MouseButton");
                 _canChoose = false;
                 perk = currentCardHover.GetComponent<CardController>().perk;
                 Debug.Log(perk);
@@ -56,6 +54,7 @@ public class PlayerController : MonoBehaviour
             {
                 _canShoot = false;
                 Debug.LogWarning(perk.functionNumber);
+                GunSignals.Instance.onPlayAnimation?.Invoke();
                 PlayerSignals.Instance.onPlayerShoot?.Invoke(perk.functionNumber);
 
             }

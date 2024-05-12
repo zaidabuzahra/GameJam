@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     [Button]
     public void PlayerTurnEnter()
     {
-        Debug.Log("Turn Enter");
+        Debug.Log("-------Enter Turn Enter------");
         _currentPlayer = players[_turnManager];
         if (firstTime)
         {
@@ -35,25 +35,24 @@ public class GameManager : MonoBehaviour
         }
         if (_roundPassed)
         {
-            Debug.Log("It entered");
+            Debug.Log("-----Round");
             _roundPassed = false;
             var lastFirst = players[0];
-            Debug.Log(players[1].name);
             for (int i = 1; i < players.Length; i++)
             {;
                 players[i-1] = players[i];
             }
             players[3] = lastFirst;
             players[_turnManager].SetActive(true);
-            Debug.Log(players[0].name);
             _currentPlayer = players[_turnManager];
-            Debug.Log(players[3].name);
             PlayerSignals.Instance.onTurnEnter?.Invoke(_currentPlayer);
             return;
         }
+        Debug.Log("-----Next Player");
         players[_turnManager].SetActive(true);
         GunSignals.Instance.onGetGunClose?.Invoke();
         PlayerSignals.Instance.onPlayerCanSHoot?.Invoke();
+        Debug.Log("-------Leave TurnEnter------");
     }
 
     private void RotateCamera()
@@ -61,7 +60,6 @@ public class GameManager : MonoBehaviour
         int y = 0;
         if (_roundPassed) y = 180;
         else y = 90;
-        Debug.Log(cam.transform.rotation.y);
         cam.transform.DORotate(new Vector3(0, (cam.transform.rotation.y) + y, 0), 1f, RotateMode.FastBeyond360).SetRelative();
     }
     private void PlayerTurnExit()
@@ -72,7 +70,8 @@ public class GameManager : MonoBehaviour
     IEnumerator ShootTimer()
     {
         yield return new WaitForSeconds(1f);
-        Debug.Log("Left");
+        Debug.Log("-----Enter TurnExit-----");
+        GunSignals.Instance.onGetGunBack?.Invoke(players[_turnManager].GetComponent<PlayerManager>().Gun);
         players[_turnManager].SetActive(false);
         if (_turnManager + 1 >= players.Length)
         {
@@ -83,6 +82,7 @@ public class GameManager : MonoBehaviour
         else _turnManager++;
         Debug.Log(_turnManager);
         RotateCamera();
+        Debug.Log("------Leave TurnExit-----");
         PlayerTurnEnter();
     }
 }

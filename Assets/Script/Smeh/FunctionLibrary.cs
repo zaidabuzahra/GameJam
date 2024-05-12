@@ -14,7 +14,6 @@ public class FunctionLibrary: MonoBehaviour
     public void Function1()
     {
         Debug.Log("Function 1");
-        GunSignals.Instance.onPlayAnimation?.Invoke();
         int shot = UnityEngine.Random.Range(1, 6); 
         if(shot == 1 || shot ==2){
             PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
@@ -78,9 +77,11 @@ public class FunctionLibrary: MonoBehaviour
     int numFunc6 = 6;
     public void Function6()
     {
+        GunSignals.Instance.onPlayAnimation?.Invoke();
+        Debug.LogWarning("Shooting started");
         Debug.Log(numFunc6);
 
-        int shot = UnityEngine.Random.Range(1, numFunc6); 
+        int shot = UnityEngine.Random.Range(1, numFunc6);
         if(shot == 1 || shot ==2){
             PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(450);
