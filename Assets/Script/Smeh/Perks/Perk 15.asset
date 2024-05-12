@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Perk 15
   m_EditorClassIdentifier: 
   cardTitle: Last Man Standing
-  cardDescription: All players get shot until only one player survives. +400pts on
-    survival.
+  cardDescription: If only one person survives. +400pts for the survivor.
   cardImage: {fileID: 0}
   functionNumber: 15

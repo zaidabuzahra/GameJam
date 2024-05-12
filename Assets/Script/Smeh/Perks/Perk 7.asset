@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Perk 7
   m_EditorClassIdentifier: 
   cardTitle: Mastermind
-  cardDescription: A random player gets the revolver and decides how many live bullets
-    are in the gun. +50/100/150/250/500pts if 1/2/3/4/5 live bullets on survival.
+  cardDescription: Each player gets a random number of empty shells. +50/100/150/250/500pts
+    if 5/4/3/2/1 empty shells on survival.
   cardImage: {fileID: 0}
   functionNumber: 7
