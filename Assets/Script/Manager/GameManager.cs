@@ -1,18 +1,14 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using DG.Tweening;
-using UnityEditor;
 using System.Collections;
-using UnityEditor.SearchService;
-using UnityEngine.SceneManagement;
-
 public class GameManager : MonoBehaviour
 {
     [SerializeField] UIManager uIManager; 
 
     [SerializeField]
     private GameObject[] players = new GameObject[4];
-    private int[] points = new int[4];
+    public int[] points = new int[4];
 
     public GameObject currentPlayer { get; private set; }
     private int _turnManager;
@@ -49,9 +45,9 @@ public class GameManager : MonoBehaviour
         }
         Debug.LogWarning($"IN PLAYER MANAGER: {GetPoint()}");
 
-        if(points[currentPlayer.GetComponent<PlayerManager>().id] >=4000){
+        if(points[currentPlayer.GetComponent<PlayerManager>().id] >=1500){
             Debug.Log("Player " + (currentPlayer.GetComponent<PlayerManager>().id + 1) + " is the winner!!");
-            SceneManager.LoadScene("Sample Scene");
+            CoreGameSignals.Instance.onAnnounceWinner?.Invoke();
         }
     }
 
@@ -60,6 +56,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("-------Enter Turn Enter------");
         currentPlayer = players[_turnManager];
+        CoreGameSignals.Instance.onUpdateUI?.Invoke();
         if (firstTime)
         {
             PlayerSignals.Instance.onTurnEnter?.Invoke(currentPlayer);
@@ -78,6 +75,8 @@ public class GameManager : MonoBehaviour
             players[3] = lastFirst;
             players[_turnManager].SetActive(true);
             currentPlayer = players[_turnManager];
+
+            CoreGameSignals.Instance.onUpdateUI?.Invoke();
             CoreGameSignals.Instance.onResetFunction?.Invoke();
             PlayerSignals.Instance.onTurnEnter?.Invoke(currentPlayer);
             return;
@@ -95,6 +94,7 @@ public class GameManager : MonoBehaviour
         if (_roundPassed) y = 180;
         else y = 90;
         cam.transform.DORotate(new Vector3(0, (int)(cam.transform.rotation.y) + y, 0), 1f, RotateMode.FastBeyond360).SetRelative();
+        int x = (int)transform.rotation.y;
         //cam.transform.rotation = new Vector3(cam.transform.rotation.x, cam.transform.rotation.y, cam.transform.rotation.z);
     }
     private void PlayerTurnExit()

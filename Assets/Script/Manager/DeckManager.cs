@@ -33,7 +33,7 @@ public class DeckManager : MonoBehaviour
     private void OnPlayerChoseCard(GameObject card)
     {
         card.transform.DOMove(transform.position, 1f);
-        card.transform.DORotate(new Vector3(90, 0,0), 1f);
+        card.transform.DORotate(new Vector3(0, 0,0), 1f);
         card.GetComponent<CardController>().Played = true;
         int one = 1;
         for (int i = 0; i < 3; i++)

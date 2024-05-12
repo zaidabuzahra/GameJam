@@ -16,4 +16,4 @@ MonoBehaviour:
   cardDescription: Shoot oneself 6 times reloading and spinning the revolver after
     every shot. If all bullets were live +750pts.
   cardImage: {fileID: 2800000, guid: f7d548b4efd95d04b879cabe3a709e8e, type: 3}
-  functionNumber: 19
+  functionNumber: 9

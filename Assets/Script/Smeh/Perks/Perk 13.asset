@@ -16,4 +16,4 @@ MonoBehaviour:
   cardDescription: Each player rolls a number from 0-6 to determine the number of
     live rounds for his turn. +400pts on survival.
   cardImage: {fileID: 2800000, guid: 208b14b6d1e7fcc4891d15521611dfe1, type: 3}
-  functionNumber: 13
+  functionNumber: 6

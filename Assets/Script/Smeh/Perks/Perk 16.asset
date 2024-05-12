@@ -15,4 +15,4 @@ MonoBehaviour:
   cardTitle: Oops!
   cardDescription: 'No perks this round. +500pts on survival. '
   cardImage: {fileID: 2800000, guid: 6bcea5db9fb1dbd4fb2d28fdf8d01597, type: 3}
-  functionNumber: 16
+  functionNumber: 8

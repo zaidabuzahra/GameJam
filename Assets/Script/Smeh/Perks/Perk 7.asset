@@ -16,4 +16,4 @@ MonoBehaviour:
   cardDescription: Each player gets a random number of empty shells. +50/100/150/250/500pts
     if 5/4/3/2/1 empty shells on survival.
   cardImage: {fileID: 2800000, guid: e9d02b0be21f7e340a8627b0c879c764, type: 3}
-  functionNumber: 7
+  functionNumber: 5

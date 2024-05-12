@@ -13,11 +13,19 @@ public class PlayerController : MonoBehaviour
     private Vector3 _mousePos;
     private GameObject currentCardHover;
     private bool _canShoot, _canChoose;
-
+    private bool _gameFinished;
     private void OnEnable()
     {
         PlayerSignals.Instance.onPlayerCanSHoot += PlayerShoot;
         PlayerSignals.Instance.onPlayerCanChoose += PlayerCanChoose;
+        CoreGameSignals.Instance.onAnnounceWinner += End;
+    }
+
+    private void End()
+    {
+        _gameFinished = true;
+        _canChoose = false;
+        _canShoot = false;
     }
 
     private void PlayerCanChoose()
@@ -31,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (_gameFinished) return;
         _mousePos = Input.mousePosition;
         Ray ray = cam.ScreenPointToRay(_mousePos);
         if(Physics.Raycast(ray, out RaycastHit rayHit, 999f, cardLayerMask))

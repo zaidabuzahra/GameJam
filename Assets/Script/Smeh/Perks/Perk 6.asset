@@ -15,4 +15,4 @@ MonoBehaviour:
   cardTitle: Sharing is Caring
   cardDescription: Share one revolver with 4 live bullets. +450pts on survival.
   cardImage: {fileID: 2800000, guid: 0b87742f6aa63eb4fb9e08acc6d38a80, type: 3}
-  functionNumber: 6
+  functionNumber: 4
