@@ -12,8 +12,6 @@ using UnityEngine;
 
 public class FunctionLibrary: MonoBehaviour
 {
-<<<<<<< Updated upstream
-=======
     bool f2shotNext = false;
     int f6num = 6;
     bool f17shooter = true;
@@ -26,7 +24,6 @@ public class FunctionLibrary: MonoBehaviour
     int f21PLayerNum = 0;
     bool f20IsDead = false;
 
->>>>>>> Stashed changes
     public void Function1()
     {
         Debug.Log("Function 1");
@@ -358,15 +355,12 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 21");
 
-<<<<<<< Updated upstream
         int ran = UnityEngine.Random.Range(1, 4);
         // player number random -300 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(-300);
         // other players +100 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(100);
-=======
         f21PLayerNum ++;
         if(f21PLayerNum == f21Chosen) PlayerSignals.Instance.onPlayerGainPoint?.Invoke(300);
         else PlayerSignals.Instance.onPlayerGainPoint?.Invoke(-100);
->>>>>>> Stashed changes
     }
 
     public void Function22()

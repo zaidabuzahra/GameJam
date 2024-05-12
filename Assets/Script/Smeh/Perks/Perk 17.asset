@@ -15,5 +15,5 @@ MonoBehaviour:
   cardTitle: risk it for the biscuit
   cardDescription: The revolver is rigged to have only 1% chance to survive. Only
     the player who picked this can take a shot. Win the game on survival.
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: ba9396931f8a7fd4ba49b429b2698639, type: 3}
   functionNumber: 17
