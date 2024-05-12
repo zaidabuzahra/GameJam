@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Perk 10
   m_EditorClassIdentifier: 
   cardTitle: A Small Price to Pay for Salvation
-  cardDescription: A player has to die or everyone dies. +100pts on survival.
+  cardDescription: A player has to die or everyone dies forever. (Restart the game)
   cardImage: {fileID: 0}
   functionNumber: 10
