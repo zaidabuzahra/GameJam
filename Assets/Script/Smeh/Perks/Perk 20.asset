@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 368e7f2838db24a7e934759986225bc0, type: 3}
   m_Name: Perk 20
   m_EditorClassIdentifier: 
-  cardTitle: All for One
-  cardDescription: Take 100pts from 3 random players to give 300pts to the 4th player.
-    No shooting this round.
-  cardImage: {fileID: 0}
+  cardTitle: Nothing Personal Kid
+  cardDescription: On survival, reload and shoot another player. +500 on survival
+    and +200 on kill.
+  cardImage: {fileID: 2800000, guid: ce3448f344925ba4495df85c6b48355b, type: 3}
   functionNumber: 20

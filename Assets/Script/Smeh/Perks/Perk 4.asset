@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Perk 4
   m_EditorClassIdentifier: 
   cardTitle: Extra life??!!
-  cardDescription: Revolver shoots 2 bullets. +250pts on survival of one.
-  cardImage: {fileID: 0}
+  cardDescription: Every player has an extra life. +250pts on survival.
+  cardImage: {fileID: 2800000, guid: 67cde3148219857499ab933a376ae4eb, type: 3}
   functionNumber: 4

@@ -7,6 +7,6 @@ public class PerksLibrary : ScriptableObject
 {
     public String cardTitle;
     public String cardDescription;
-    public Sprite cardImage;
+    public Texture cardImage;
     public int functionNumber;
 }
