@@ -19,12 +19,18 @@ public class FunctionLibrary: MonoBehaviour
     bool f10Restart = false;
     int f10Alive = 0;
     bool f15Skip = false;
-    //int f15Chosen = UnityEngine.Random.Range(1, 4);
+    int f15Chosen;
     int f15PlayerNum = 0; 
-    //int f21Chosen = UnityEngine.Random.Range(1, 4);
+    int f21Chosen;
     int f21PLayerNum = 0;
     bool f20IsDead = false;
 
+    private void Awake()
+    {
+
+        f21Chosen = UnityEngine.Random.Range(1, 4); 
+        f15Chosen = UnityEngine.Random.Range(1, 4);
+    }
     private void OnEnable()
     {
         CoreGameSignals.Instance.onResetFunction += RestartFunc6;
