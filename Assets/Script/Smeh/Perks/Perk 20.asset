@@ -16,4 +16,4 @@ MonoBehaviour:
   cardDescription: Take 100pts from 3 random players to give 300pts to the 4th player.
     No shooting this round.
   cardImage: {fileID: 0}
-  functionNumber: 21
+  functionNumber: 20

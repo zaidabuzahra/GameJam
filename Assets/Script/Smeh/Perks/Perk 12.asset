@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardTitle: OR Gate
   cardDescription: Each player shoots himself twice. +250pts on survival of one shot.
-    +100pts on survival of both shots.
+    +1000pts on survival of both shots.
   cardImage: {fileID: 0}
   functionNumber: 12

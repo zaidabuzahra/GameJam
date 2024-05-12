@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 368e7f2838db24a7e934759986225bc0, type: 3}
   m_Name: Perk 17
   m_EditorClassIdentifier: 
-  cardTitle: risk it for the biscuit
+  cardTitle: Risk it for the Biscuit
   cardDescription: The revolver is rigged to have only 1% chance to survive. Only
     the player who picked this can take a shot. Win the game on survival.
   cardImage: {fileID: 0}
