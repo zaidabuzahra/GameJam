@@ -74,8 +74,8 @@ public class DeckManager : MonoBehaviour
         {
             var card = cards[i];
 
-            var data = perks[UnityEngine.Random.Range(0,21)];
-            data = perks[18];
+            var data = perks[UnityEngine.Random.Range(0,8)];
+            // data = perks[18];
             card.GetComponent<CardController>().perk = data;
             card.GetComponent<MeshRenderer>().material.mainTexture = data.cardImage;
 
