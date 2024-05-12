@@ -94,7 +94,8 @@ public class GameManager : MonoBehaviour
         int y = 0;
         if (_roundPassed) y = 180;
         else y = 90;
-        cam.transform.DORotate(new Vector3(0, (cam.transform.rotation.y) + y, 0), 1f, RotateMode.FastBeyond360).SetRelative();
+        cam.transform.DORotate(new Vector3(0, (int)(cam.transform.rotation.y) + y, 0), 1f, RotateMode.FastBeyond360).SetRelative();
+        //cam.transform.rotation = new Vector3(cam.transform.rotation.x, cam.transform.rotation.y, cam.transform.rotation.z);
     }
     private void PlayerTurnExit()
     {

@@ -426,7 +426,7 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 22");
 
-        int ran = UnityEngine.Random.Range(1, 22);
+        int ran = UnityEngine.Random.Range(1, 9);
         cardActivation(ran);
     }
 
