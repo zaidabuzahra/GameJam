@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using Unity.VisualScripting;
 using UnityEngine;
 
 //PlayerSignals.Instance.onPlayerDie?.Invoke();
@@ -11,6 +12,21 @@ using UnityEngine;
 
 public class FunctionLibrary: MonoBehaviour
 {
+<<<<<<< Updated upstream
+=======
+    bool f2shotNext = false;
+    int f6num = 6;
+    bool f17shooter = true;
+    bool f10Restart = false;
+    int f10Alive = 0;
+    bool f15Skip = false;
+    int f15Chosen = UnityEngine.Random.Range(1, 4);
+    int f15PlayerNum = 0; 
+    int f21Chosen = UnityEngine.Random.Range(1, 4);
+    int f21PLayerNum = 0;
+    bool f20IsDead = false;
+
+>>>>>>> Stashed changes
     public void Function1()
     {
         Debug.Log("Function 1");
@@ -47,23 +63,17 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 4");
 
-        int shot = UnityEngine.Random.Range(1, 6); 
-
-        // pick a player
-        // if(self){
-        //     if (shot == 1)
-        //     PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-        //     // +250 
-        //     else{
-        //         shot = UnityEngine.Random.Range(1, 6);
-        //         if (shot == 1)
-        //         PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-        //     }
-        // } else{
-        //     if (shot == 1)
-        //     PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-        //     // +750
-        // }  else PlayerSignals.Instance.onPlayerDie?.Invoke();
+        int shot = UnityEngine.Random.Range(1, 6);
+        if(shot != 1){
+            shot = UnityEngine.Random.Range(1, 5);
+            if(shot == 1){
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
+                PlayerSignals.Instance.onPlayerGainPoint?.Invoke(250);
+            } else PlayerSignals.Instance.onPlayerDie?.Invoke(); 
+        }  else {
+            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
+            PlayerSignals.Instance.onPlayerGainPoint?.Invoke(250);
+        }
     }
 
     public void Function5()
@@ -327,25 +337,36 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 20");
 
+        if(f20IsDead){
+            f20IsDead = false;
+            return;
+        }
         int shot = UnityEngine.Random.Range(1, 6); 
         if(shot == 1){
             PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             shot = UnityEngine.Random.Range(1, 6);
-            // shoot someone else
+            // shoot next player
             if(shot!=1){
-                // next player dies
-                // +500 to current player PlayerSignals.Instance.onPlayerGainPoint?.Invoke(500);
+                f20IsDead = true;
+                PlayerSignals.Instance.onPlayerGainPoint?.Invoke(500);
             }
         } else PlayerSignals.Instance.onPlayerDie?.Invoke();
     }
+
 
     public void Function21()
     {
         Console.WriteLine("Function 21");
 
+<<<<<<< Updated upstream
         int ran = UnityEngine.Random.Range(1, 4);
         // player number random -300 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(-300);
         // other players +100 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(100);
+=======
+        f21PLayerNum ++;
+        if(f21PLayerNum == f21Chosen) PlayerSignals.Instance.onPlayerGainPoint?.Invoke(300);
+        else PlayerSignals.Instance.onPlayerGainPoint?.Invoke(-100);
+>>>>>>> Stashed changes
     }
 
     public void Function22()
@@ -355,14 +376,6 @@ public class FunctionLibrary: MonoBehaviour
         // each player random quirk
         int ran = UnityEngine.Random.Range(1, 23);
         //cardActivation(ran);
-    }
-
-    public void Function23()
-    {
-        Console.WriteLine("Function 23");
-
-        // each player can rewind one result
-        // idk how 
     }
 
     public void cardActivation(int functionID)
@@ -435,9 +448,6 @@ public class FunctionLibrary: MonoBehaviour
                 break;
             case 22:
                 Function22();
-                break;
-            case 23:
-                Function23();
                 break;
             default:
                 Console.WriteLine("Invalid function ID.");

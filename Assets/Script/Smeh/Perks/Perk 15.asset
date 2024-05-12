@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Perk 15
   m_EditorClassIdentifier: 
   cardTitle: Last Man Standing
-  cardDescription: If only one person survives. +400pts for the survivor.
+  cardDescription: A random player is destined to be the only survivor. +400pts for
+    the survivor.
   cardImage: {fileID: 0}
   functionNumber: 15

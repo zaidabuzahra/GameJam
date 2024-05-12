@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Perk 4
   m_EditorClassIdentifier: 
   cardTitle: Extra life??!!
-  cardDescription: You get an extra that you can use on any player. If used on self
-    +150 pts on if you survive, if you use on another player +750pts on survival.
+  cardDescription: Every player has an extra life. +250pts on survival.
   cardImage: {fileID: 0}
   functionNumber: 4
