@@ -3,9 +3,13 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEditor;
 using System.Collections;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] UIManager uIManager; 
+
     [SerializeField]
     private GameObject[] players = new GameObject[4];
     private int[] points = new int[4];
@@ -47,6 +51,7 @@ public class GameManager : MonoBehaviour
 
         if(points[currentPlayer.GetComponent<PlayerManager>().id] >=4000){
             Debug.Log("Player " + (currentPlayer.GetComponent<PlayerManager>().id + 1) + " is the winner!!");
+            SceneManager.LoadScene("Sample Scene");
         }
     }
 

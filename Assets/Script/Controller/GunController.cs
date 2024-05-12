@@ -8,6 +8,12 @@ public class GunController : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] private GameObject player, tableSocket;
     private int randNumber;
+    public AudioSource gunning;
+    public AudioClip gunpew;
+    public AudioSource spinit;
+    public AudioClip barrelvroom;
+    public AudioSource urdeadlol;
+    public AudioClip pewpew;
 
     private void OnEnable()
     {
@@ -61,6 +67,8 @@ public class GunController : MonoBehaviour
     {
         if (!player.activeSelf) return;
         Debug.Log("YOU SURVIVED");
+        gunning.clip = gunpew;
+        gunning.PlayDelayed(1);
         //animator.SetBool("Fire", false);
         PlayerSignals.Instance.onTurnExit?.Invoke();
     }
@@ -69,6 +77,8 @@ public class GunController : MonoBehaviour
     {
         if (!player.activeSelf) return;
         Debug.Log("YOU DIED");
+        urdeadlol.clip = pewpew;
+        urdeadlol.PlayDelayed(1);
         //animator.SetBool("Fire", false);
         PlayerSignals.Instance.onTurnExit?.Invoke();
     }
@@ -79,6 +89,8 @@ public class GunController : MonoBehaviour
         animator.SetBool("Fire", false);
         animator.ResetTrigger("Reload");
         animator.SetTrigger("Reload");
-        randNumber = Random.Range(1, 6);
+        spinit.clip = barrelvroom;
+        spinit.Play();
+    randNumber = Random.Range(1, 6);
     }
 }

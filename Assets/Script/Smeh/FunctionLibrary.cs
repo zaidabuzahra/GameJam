@@ -445,62 +445,62 @@ public class FunctionLibrary: MonoBehaviour
                 Function3();
                 break;
             case 4:
-                Function4();
-                break;
-            case 5:
-                Function5();
-                break;
-            case 6:
                 Function6();
                 break;
-            case 7:
+            case 5:
                 Function7();
                 break;
-            case 8:
-                Function8();
-                break;
-            case 9:
-                Function9();
-                break;
-            case 10:
-                Function10();
-                break;
-            case 11:
-                Function11();
-                break;
-            case 12:
-                Function12();
-                break;
-            case 13:
+            case 6:
                 Function13();
                 break;
-            case 14:
+            case 7:
                 Function14();
                 break;
-            case 15:
-                Function15();
-                break;
-            case 16:
+            case 8:
                 Function16();
                 break;
-            case 17:
-                Function17();
-                break;
-            case 18:
-                Function18();
-                break;
-            case 19:
+            case 9:
                 Function19();
                 break;
-            case 20:
-                Function20();
-                break;
-            case 21:
-                Function21();
-                break;
-            case 22:
-                Function22();
-                break;
+            // case 10:
+            //     Function10();
+            //     break;
+            // case 11:
+            //     Function11();
+            //     break;
+            // case 12:
+            //     Function12();
+            //     break;
+            // case 13:
+            //     Function13();
+            //     break;
+            // case 14:
+            //     Function14();
+            //     break;
+            // case 15:
+            //     Function15();
+            //     break;
+            // case 16:
+            //     Function16();
+            //     break;
+            // case 17:
+            //     Function17();
+            //     break;
+            // case 18:
+            //     Function18();
+            //     break;
+            // case 19:
+            //     Function19();
+            //     break;
+            // case 20:
+            //     Function20();
+            //     break;
+            // case 21:
+            //     Function21();
+            //     break;
+            // case 22:
+            //     Function22();
+            //     break;
             default:
                 Console.WriteLine("Invalid function ID.");
                 break;
