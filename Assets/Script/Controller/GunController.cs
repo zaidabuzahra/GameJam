@@ -68,7 +68,7 @@ public class GunController : MonoBehaviour
         if (!player.activeSelf) return;
         Debug.Log("YOU SURVIVED");
         gunning.clip = gunpew;
-        gunning.Play();
+        gunning.PlayDelayed(1);
         //animator.SetBool("Fire", false);
         PlayerSignals.Instance.onTurnExit?.Invoke();
     }
@@ -78,7 +78,7 @@ public class GunController : MonoBehaviour
         if (!player.activeSelf) return;
         Debug.Log("YOU DIED");
         urdeadlol.clip = pewpew;
-        urdeadlol.Play();
+        urdeadlol.PlayDelayed(1);
         //animator.SetBool("Fire", false);
         PlayerSignals.Instance.onTurnExit?.Invoke();
     }
