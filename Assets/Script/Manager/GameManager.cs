@@ -44,6 +44,10 @@ public class GameManager : MonoBehaviour
             points[currentPlayer.GetComponent<PlayerManager>().id] += amount;
         }
         Debug.LogWarning($"IN PLAYER MANAGER: {GetPoint()}");
+
+        if(points[currentPlayer.GetComponent<PlayerManager>().id] >=4000){
+            Debug.Log("Player " + (currentPlayer.GetComponent<PlayerManager>().id + 1) + " is the winner!!");
+        }
     }
 
     [Button]
