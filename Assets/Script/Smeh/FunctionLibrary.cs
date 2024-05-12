@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics.Tracing;
 using System.Globalization;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //PlayerSignals.Instance.onPlayerDie?.Invoke();
 
@@ -88,11 +90,19 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 5");
 
+        if(f2shotNext){
+            f2shotNext = false;
+            return;
+        } 
+
         // shoot next player
-        // +250 on kill
+        int shot = UnityEngine.Random.Range(1, 6); 
+        if(shot != 1){
+            f2shotNext = true;
+            PlayerSignals.Instance.onPlayerGainPoint?.Invoke(250);
+        } else PlayerSignals.Instance.onPlayerGainPoint?.Invoke(-100);;
     }
 
-    int numFunc6 = 6;
     public void Function6()
     {
         GunSignals.Instance.onPlayAnimation?.Invoke(); 
@@ -122,39 +132,38 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 7");
 
-        int ran = UnityEngine.Random.Range(1, 4);
-        int input = Convert.ToInt32(Console.ReadLine());
+        int ran = UnityEngine.Random.Range(1, 5);
         int shot = UnityEngine.Random.Range(1, 6);
-        switch(input){
+        switch(ran){
             case 1:
-            if(shot == 1 || shot ==2 || shot == 3 || shot == 4 || shot == 5){
+            if(shot == 1){
                 PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-                PlayerSignals.Instance.onPlayerGainPoint?.Invoke(50);
-                } else PlayerSignals.Instance.onPlayerDie?.Invoke();
+                PlayerSignals.Instance.onPlayerGainPoint?.Invoke(500);
+                } else PlayerSignals.Instance.onPlayerDie?.Invoke();   
                 break;
             case 2:
-            if(shot == 1 || shot ==2|| shot == 3 || shot == 4){
+            if(shot == 1 || shot == 2){
                 PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-                PlayerSignals.Instance.onPlayerGainPoint?.Invoke(100);
+                PlayerSignals.Instance.onPlayerGainPoint?.Invoke(200);
                 } else PlayerSignals.Instance.onPlayerDie?.Invoke();   
                 break;
             case 3:
-            if(shot == 1 || shot ==2 || shot == 3){
+            if(shot == 1 || shot == 2 || shot == 3){
                 PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
                 PlayerSignals.Instance.onPlayerGainPoint?.Invoke(150);
                 } else PlayerSignals.Instance.onPlayerDie?.Invoke();   
                 break;
             case 4:
-            if(shot == 1 || shot ==2){
+            if(shot == 1 || shot == 2|| shot == 3 || shot == 4){
                 PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-                PlayerSignals.Instance.onPlayerGainPoint?.Invoke(200);
+                PlayerSignals.Instance.onPlayerGainPoint?.Invoke(100);
                 } else PlayerSignals.Instance.onPlayerDie?.Invoke();   
                 break;
             case 5:
-            if(shot == 1){
+            if(shot == 1 || shot == 2 || shot == 3 || shot == 4 || shot == 5){
                 PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-                PlayerSignals.Instance.onPlayerGainPoint?.Invoke(500);
-                } else PlayerSignals.Instance.onPlayerDie?.Invoke();   
+                PlayerSignals.Instance.onPlayerGainPoint?.Invoke(50);
+                } else PlayerSignals.Instance.onPlayerDie?.Invoke();
                 break;
             default:
                 Console.WriteLine("Invalid function ID.");
@@ -192,9 +201,14 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 10");
 
-        // find out how many alive players
-        // if all alive kill everyone
-        // if one dead alive players get +500
+        if(f10Restart) SceneManager.LoadScene("Sample Scene");
+        if(f10Alive == 4) f10Restart = true;
+
+        int shot = UnityEngine.Random.Range(1, 6); 
+        if(shot == 1){
+            f10Alive ++;
+            PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
+        } else PlayerSignals.Instance.onPlayerDie?.Invoke();
     }
 
     public void Function11()
@@ -287,12 +301,22 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 15");
 
-        int shot = UnityEngine.Random.Range(1, 6); 
-        if(shot == 1 || shot ==2){
+        if(f15Skip) return;
+        f15PlayerNum ++;
+
+        int shot = UnityEngine.Random.Range(1, 6);
+        if(f15PlayerNum == f15Chosen){
+            if(shot == 1){
+                f15Skip = true;
+                PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
+                PlayerSignals.Instance.onPlayerGainPoint?.Invoke(400);
+            } else PlayerSignals.Instance.onPlayerDie?.Invoke();
+        }
+        if(shot == 1){
+            f15Skip = true;
             PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-            PlayerSignals.Instance.onPlayerGainPoint?.Invoke(500);
+
         } else PlayerSignals.Instance.onPlayerDie?.Invoke();
-        // do same for next player until only one survives
     }
 
     public void Function16()
@@ -310,8 +334,10 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 17");
 
+        if(!f17shooter) return;
         int shot = UnityEngine.Random.Range(1, 100); 
         if(shot == 1){
+            f17shooter = false;
             PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             PlayerSignals.Instance.onPlayerGainPoint?.Invoke(5000);
         } else PlayerSignals.Instance.onPlayerDie?.Invoke();
@@ -329,7 +355,7 @@ public class FunctionLibrary: MonoBehaviour
             shot = UnityEngine.Random.Range(1, i);
             if(shot == 1){
                 PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
-                break;
+                return;
             }
         }
         PlayerSignals.Instance.onPlayerDie?.Invoke();
@@ -344,7 +370,7 @@ public class FunctionLibrary: MonoBehaviour
         for(int i=0; i<7; i++){
             if(shot == 1){
                 PlayerSignals.Instance.onPlayerDie?.Invoke();
-                break;
+                return;
             }
             PlayerSignals.Instance.onPlayerSUrvive?.Invoke();
             shot = UnityEngine.Random.Range(1, 6);
@@ -387,9 +413,8 @@ public class FunctionLibrary: MonoBehaviour
     {
         Console.WriteLine("Function 22");
 
-        // each player random quirk
-        int ran = UnityEngine.Random.Range(1, 23);
-        //cardActivation(ran);
+        int ran = UnityEngine.Random.Range(1, 22);
+        cardActivation(ran);
     }
 
     public void cardActivation(int functionID)
